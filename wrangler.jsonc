@@ -1,0 +1,8 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "docs-gomode-dev",
+	"compatibility_date": "2026-03-15",
+	"assets": {
+		"directory": "./.vitepress/dist"
+	}
+}

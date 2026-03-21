@@ -1,0 +1,97 @@
+# AGENTS.md — Documentation generation guide
+
+This is the documentation website for the [gomode](https://github.com/gomodedev/gomode) and [md](https://github.com/gomodedev/md) projects. It is built with [VitePress](https://vitepress.dev/) and deployed to Cloudflare.
+
+## Repository layout
+
+```
+docs/
+├── AGENTS.md              # This file
+├── index.md               # Home page (VitePress hero layout)
+├── gomode/
+│   ├── index.md           # gomode overview
+│   ├── installation.md
+│   ├── architecture.md
+│   ├── configuration.md
+│   ├── github.md          # GitHub integration
+│   ├── gitlab.md          # GitLab integration
+│   └── android.md
+├── md/
+│   ├── index.md           # md overview
+│   ├── installation.md
+│   ├── commands.md
+│   ├── configuration.md   # caches, env vars, agent config mounts
+│   ├── harnesses.md       # per-agent setup and AGENTS.md/skills
+│   └── tailscale.md
+├── .vitepress/
+│   └── config.ts          # sidebar and nav config — update when adding pages
+├── package.json
+└── wrangler.jsonc          # Cloudflare Pages deployment config
+```
+
+## Source of truth
+
+Always read the upstream source files before writing or updating documentation:
+
+| Doc section | Upstream source files |
+|---|---|
+| `gomode/*` | `/home/user/src/gomode/README.md`, `AGENTS.md` |
+| `md/*` | `/home/user/src/md/README.md`, `HARNESSES.md`, `TAILSCALE.md`, `AGENTS.md` |
+
+These paths assume the projects are checked out under `~/src/` (i.e. `/home/user/src/gomode`, `/home/user/src/md`).
+
+## Conventions
+
+### Frontmatter
+
+Only the home page (`index.md`) uses VitePress frontmatter (`layout: home`). All other pages are plain markdown.
+
+### Headings
+
+- Each page starts with a single `# H1` matching the page title
+- Use `##` for major sections, `###` for subsections
+- Do not use H4 or deeper
+
+### Links
+
+- Cross-links between pages use relative paths without `.md` extension: `[Commands](./commands)`, `[md](../md/)`
+- External links use full URLs
+
+### Code blocks
+
+Always specify the language: ` ```bash `, ` ```json `, ` ```go `, etc.
+
+### Tables
+
+Prefer pipe tables for reference material (env vars, commands, flags).
+
+## Adding a new page
+
+1. Create the markdown file in the appropriate directory (`gomode/` or `md/`)
+2. Add it to the sidebar in `.vitepress/config.ts` under the correct section
+3. Link to it from the relevant overview page (`index.md`)
+
+## Updating the sidebar
+
+The sidebar is defined in `.vitepress/config.ts`. When adding a page, add an entry to the `items` array for the corresponding section:
+
+```ts
+{ text: 'Page Title', link: '/gomode/page-name' }
+```
+
+## Build
+
+```bash
+pnpm install
+pnpm run build    # output: .vitepress/dist/
+pnpm run dev      # local dev server
+```
+
+## Deploy
+
+Deployed automatically to Cloudflare Pages on push. To deploy manually:
+
+```bash
+pnpm run build
+wrangler pages deploy
+```
