@@ -1,4 +1,5 @@
 ---
+# gomode and md documentation homepage.
 layout: home
 
 hero:
