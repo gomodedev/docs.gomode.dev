@@ -13,10 +13,10 @@ pnpm run dev
 Connect `main` to the `docs-gomode-dev` Worker in Cloudflare Workers →
 Settings → Build. Set:
 
-- Build command: `pnpm run build`.
-- Deploy command: `pnpm exec wrangler deploy`.
-- Version command: `pnpm exec wrangler versions upload`.
-- Build variable: `SKIP_DEPENDENCY_INSTALL` = `1`.
+- Build command: `pnpm run build`
+- Deploy command: `pnpm exec wrangler deploy`
+- Version command: `pnpm exec wrangler versions upload`
+- Build variable: `SKIP_DEPENDENCY_INSTALL` = `1`
 
 Workers Builds settings live in Cloudflare. `wrangler.jsonc` configures
 the Worker itself.
