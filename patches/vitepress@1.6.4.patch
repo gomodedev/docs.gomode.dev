@@ -1,0 +1,15 @@
+diff --git a/dist/client/theme-default/components/VPLocalSearchBox.vue b/dist/client/theme-default/components/VPLocalSearchBox.vue
+index 951a7536c4206bf7c8d4b9473220bcb6bea230d4..31cc857b291b188c2a5ec4bb47d41411f718b015 100644
+--- a/dist/client/theme-default/components/VPLocalSearchBox.vue
++++ b/dist/client/theme-default/components/VPLocalSearchBox.vue
+@@ -64,7 +64,9 @@ const { activate } = useFocusTrap(el, {
+   immediate: true,
+   allowOutsideClick: true,
+   clickOutsideDeactivates: true,
+-  escapeDeactivates: true
++  escapeDeactivates: true,
++  // Capture the opener before mounted search input autofocus changes activeElement.
++  setReturnFocus: document.activeElement instanceof HTMLElement ? document.activeElement : false
+ })
+ const { localeIndex, theme } = vitePressData
+ const searchIndex = computedAsync(async () =>

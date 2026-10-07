@@ -1,0 +1,80 @@
+/* Go Mode documentation brand tokens, native capture layout, and responsive home content. */
+:root {
+  --vp-c-brand-1: #126b57;
+  --vp-c-brand-2: #0d5a48;
+  --vp-c-brand-3: #126b57;
+  --vp-c-brand-soft: rgba(18, 107, 87, 0.12);
+  --vp-c-bg: #f7f4ed;
+  --vp-c-bg-alt: #efeee7;
+  --vp-c-bg-soft: #ebe9df;
+  --vp-c-text-1: #1a2723;
+  --vp-c-text-2: #52635b;
+  --vp-font-family-base: ui-sans-serif, system-ui, sans-serif;
+  --vp-home-hero-name-color: var(--vp-c-brand-1);
+  --vp-home-hero-name-background: none;
+}
+.dark {
+  --vp-c-brand-1: #8ad7bc;
+  --vp-c-brand-2: #a5e6cf;
+  --vp-c-brand-3: #126b57;
+  --vp-c-bg: #15221d;
+  --vp-c-bg-alt: #102019;
+  --vp-c-bg-soft: #203329;
+  --vp-c-text-1: #edf2e9;
+  --vp-c-text-2: #c0cec2;
+}
+.native-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin-block: 28px;
+}
+.native-gallery figure {
+  margin: 0;
+  flex: 1 1 220px;
+  max-width: 280px;
+}
+.native-gallery img,
+.native-capture {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 18px;
+}
+.native-capture {
+  max-width: 280px;
+}
+.native-gallery figcaption {
+  font-size: 13px;
+  color: var(--vp-c-text-2);
+  margin-top: 12px;
+}
+.home-intro {
+  max-width: 1080px;
+  margin: 16px auto 80px;
+  padding-inline: 24px;
+}
+.home-intro h2 {
+  font-size: 30px;
+  font-weight: 650;
+  letter-spacing: -1px;
+  line-height: 1.3;
+  margin-block: 24px;
+}
+.home-intro p {
+  max-width: 700px;
+  line-height: 1.8;
+  color: var(--vp-c-text-2);
+}
+.home-intro a {
+  color: var(--vp-c-brand-1);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.home-intro .native-gallery {
+  justify-content: center;
+}
+.home-intro .native-gallery figure {
+  max-width: 240px;
+}

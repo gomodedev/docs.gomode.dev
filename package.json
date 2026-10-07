@@ -3,18 +3,25 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vitepress dev",
-    "build": "python3 scripts/update_agents_file_index.py --check && vitepress build",
-    "preview": "vitepress preview",
+    "build": "pnpm run verify && vitepress build",
     "deploy": "pnpm run build && wrangler deploy",
-    "fix": "python3 scripts/update_agents_file_index.py",
-    "verify": "python3 scripts/update_agents_file_index.py --check",
-    "prepare": "scripts/install-git-hooks.sh"
+    "dev": "vitepress dev",
+    "fix": "prettier --write . && python3 scripts/update_agents_file_index.py",
+    "prepare": "scripts/install-git-hooks.sh",
+    "screenshots": "python3 scripts/screenshots.py",
+    "verify": "prettier --check . && python3 scripts/update_agents_file_index.py --check && python3 scripts/screenshots.py --check && pnpm run test && pnpm run typecheck",
+    "preview": "vitepress preview",
+    "test": "python3 -m unittest discover -s scripts -p \"test_*.py\"",
+    "test:browser": "pnpm run build && playwright test",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "medium-zoom": "^1.1.0",
     "vitepress": "^1.6.4",
-    "wrangler": "4.135.0"
+    "wrangler": "4.143.0",
+    "prettier": "3.8.2",
+    "@playwright/test": "1.63.0",
+    "@types/node": "26.6.2",
+    "typescript": "7.0.2"
   },
   "packageManager": "pnpm@12.4.2",
   "engines": {

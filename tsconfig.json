@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noEmit": true,
+    "types": ["node", "vitepress/client"],
+    "skipLibCheck": true
+  },
+  "include": ["playwright.config.ts", "tests/**/*.ts", ".vitepress/config.ts", ".vitepress/theme/index.ts"]
+}

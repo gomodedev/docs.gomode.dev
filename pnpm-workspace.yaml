@@ -6,3 +6,5 @@ allowBuilds:
 minimumReleaseAge: 11520
 minimumReleaseAgeIgnoreMissingTime: false
 minimumReleaseAgeStrict: true
+patchedDependencies:
+  vitepress@1.6.4: patches/vitepress@1.6.4.patch

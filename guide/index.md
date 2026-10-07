@@ -1,0 +1,24 @@
+# What is Go Mode?
+
+Go Mode provides a native Android shell and reusable voice infrastructure for backend-hosted web applications. Add a service URL, load its web frontend, and use the host’s tools through MCP.
+
+The host keeps its accounts, authorization, product APIs, and content. Go Mode owns discovery, native integration, voice transport, and reusable protocol packages.
+
+## Choose your starting point
+
+- **Use an existing host:** [build and configure the Android app](./android).
+- **Connect your own application:** [serve the discovery manifest](./host), then add [authentication](./authentication) and [MCP tools](./skills).
+- **Add conversation:** choose an embedded or standalone [voice gateway](./voice).
+- **Integrate a browser frontend:** use the [SolidJS package and generated SDKs](./sdk).
+
+## How caic fits
+
+[caic](https://caic.xyz) manages coding agents in isolated containers. It is one Go Mode host. caic owns its task list, task detail, diffs, widgets, and coding-agent APIs; Go Mode supplies the Android shell and shared voice infrastructure.
+
+For coding-agent setup, use [caic’s documentation](https://docs.caic.xyz/caic/installation). For the shared platform, stay here.
+
+## Current scope
+
+The Android app loads the first advertised MCP tool group. Multiple services can be saved and switched in Settings. Context-based progressive skill activation and external-browser provider login are design work, not current setup steps.
+
+[Architecture](./architecture) explains the boundaries. [Troubleshooting](./troubleshooting) covers failed discovery, authentication, and voice connections.

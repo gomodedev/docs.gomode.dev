@@ -1,25 +1,41 @@
 ---
-# gomode and md documentation homepage.
+# Go Mode documentation homepage with Android setup and host integration entry points.
 layout: home
-
 hero:
-  name: gomode.dev
-  tagline: AI coding agents in isolated containers
+  name: Go Mode
+  text: Your app. Hands free.
+  tagline: A native Android shell and voice platform for your own web app.
   actions:
     - theme: brand
-      text: Get started with gomode
-      link: /gomode/
+      text: Set up Android
+      link: /guide/android
     - theme: alt
-      text: Get started with md
-      link: /md/
-
+      text: Build a host
+      link: /guide/host
 features:
-  - title: Install
-    details: "curl gomode.dev/install.sh | bash"
-  - title: gomode
-    details: Server that manages multiple AI coding agents running in parallel in isolated Docker containers. Access from phone, web UI, or Android app.
-    link: /gomode/
-  - title: md
-    details: CLI that creates branch-locked containers for AI agents. Safe parallel work across multiple branches without conflicts. Powers gomode.
-    link: /md/
+  - title: Bring your own service
+    details: Keep your frontend, accounts, and product APIs. Go Mode discovers the host and adds native capabilities.
+    link: /guide/architecture
+  - title: Voice with real tools
+    details: Connect conversation to your host’s MCP tools through a shared voice gateway.
+    link: /guide/voice
+  - title: Reusable by design
+    details: Go packages, a SolidJS browser integration, and generated TypeScript, Kotlin, and Swift clients.
+    link: /guide/sdk
 ---
+
+<div class="home-intro">
+
+## Start from the running product
+
+Go Mode owns Android, voice, and the shared host contract. [caic](https://docs.caic.xyz/caic/) owns coding-agent workflows; its task list, conversation, and review screens stay in its hosted frontend.
+
+<div class="native-gallery">
+<figure><img src="/screenshots/connections.webp" width="1080" height="2400" alt="Native Go Mode service connections screen" loading="lazy"><figcaption>Connect your own services</figcaption></figure>
+<figure><img src="/screenshots/hosted-service.webp" width="1080" height="2400" alt="Go Mode shell displaying the Field Notes demonstration service" loading="lazy"><figcaption>A hosted frontend inside the native shell</figcaption></figure>
+<figure><img src="/screenshots/voice-settings.webp" width="1080" height="2400" alt="Native Go Mode voice settings" loading="lazy"><figcaption>Choose voice mode and language</figcaption></figure>
+</div>
+
+Captures come from the running Android emulator. Field Notes is a demonstration service.
+
+</div>

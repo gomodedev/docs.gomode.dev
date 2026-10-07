@@ -1,3 +1,10 @@
-node_modules/
-.vitepress/dist/
+.screenshots-import.lock
+.screenshots-previous/
+.screenshots-stage-*/
 .vitepress/cache/
+.vitepress/dist/
+.wrangler/
+__pycache__/
+node_modules/
+playwright-report/
+test-results/
