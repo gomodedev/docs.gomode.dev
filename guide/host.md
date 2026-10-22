@@ -58,6 +58,18 @@ MCP endpoint and gateway references accept an absolute HTTP(S) URL or an absolut
 
 The shell currently uses the first tool group. Do not rely on progressive skill activation or multiple-group tool selection.
 
+## Offer voice choices
+
+A gateway can offer several named voice choices at one URL. The shell lists the choices your gateway advertises, filters them by speech mode, and saves the user’s choice and speaking voice for that gateway.
+
+Each choice carries a stable ID, a label, and the transports it serves. An audio choice that supports voice selection also lists its speaking voices, and a text-only choice appears only where the client handles speech. See [voice gateway](./voice) for the configuration and the speaking-voice contract.
+
+The choices come from `GET /api/voicegateway/v1/voice/choices` on the gateway. Mount the gateway with Go Mode’s handler, or run it as a service, and this endpoint needs no extra host code. Keep the IDs stable so saved selections survive configuration changes.
+
+## Alerts
+
+Expose `gomode://notifications` as an authoritative snapshot of the alerts that are actionable now. The [MCP and skills](./skills) page defines the fields, destination rules, reconciliation, and expiry; routing and retention stay in your host.
+
 ## Keep your frontend
 
 The Android shell loads your frontend in a WebView. Product routes stay in your application. Native voice and notification controls complement the hosted UI; use [browser integration](./sdk) to avoid showing duplicate browser controls inside the shell.

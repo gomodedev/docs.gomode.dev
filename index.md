@@ -16,9 +16,15 @@ features:
   - title: Bring your own service
     details: Keep your frontend, accounts, and product APIs. Go Mode discovers the host and adds native capabilities.
     link: /guide/architecture
-  - title: Voice with real tools
-    details: Connect conversation to your host’s MCP tools through a shared voice gateway.
+  - title: Voice your way
+    details: Use cloud voice with a gateway speaking voice, or run a model on the phone. Conversation still calls your host’s MCP tools.
     link: /guide/voice
+  - title: Several services at once
+    details: Save each service, switch the frontend between them, and keep one voice conversation and transcript.
+    link: /guide/android
+  - title: Alerts you can open
+    details: Host alerts arrive as notifications that open the right page in the right saved service.
+    link: /guide/host
   - title: Reusable by design
     details: Go packages, a SolidJS browser integration, and generated TypeScript, Kotlin, and Swift clients.
     link: /guide/sdk

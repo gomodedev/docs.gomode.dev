@@ -39,6 +39,10 @@ configureMcpClient("/api/my-service/mcp", "my-service-web");
 
 Import voice UI from `@maruel/gomode/web/VoiceOverlay` and settings from `@maruel/gomode/web/VoiceSettings`. Consult their source interfaces for required host-specific props; the package does not supply your product state or auth policy.
 
+`VoiceSettings` offers **Cloud voice** and **Browser speech**, the gateway choice, the speaking voice, and the voice language, and it saves each of them. An active session locks the voice mode and the language. The choice and the speaking voice come from the gateway’s discovery endpoint, so a host that offers several backends does not model them itself.
+
+`@maruel/gomode/web/notifications` provides browser notification permission, delivery, dismissal, and voice suppression. The host decides which product events become alerts and when they expire.
+
 ## Generated clients
 
 | Surface                         | Reference                                                                              |

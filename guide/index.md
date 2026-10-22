@@ -8,7 +8,7 @@ The host keeps its accounts, authorization, product APIs, and content. Go Mode o
 
 - **Use an existing host:** [build and configure the Android app](./android).
 - **Connect your own application:** [serve the discovery manifest](./host), then add [authentication](./authentication) and [MCP tools](./skills).
-- **Add conversation:** choose an embedded or standalone [voice gateway](./voice).
+- **Add conversation:** choose an embedded or standalone [voice gateway](./voice), then select a cloud or on-device voice mode in the [Android app](./android).
 - **Integrate a browser frontend:** use the [SolidJS package and generated SDKs](./sdk).
 
 ## How caic fits
@@ -19,6 +19,6 @@ For coding-agent setup, use [caic’s documentation](https://docs.caic.xyz/caic/
 
 ## Current scope
 
-The Android app loads the first advertised MCP tool group. Multiple services can be saved and switched in Settings. Context-based progressive skill activation and external-browser provider login are design work, not current setup steps.
+The Android app loads the first advertised MCP tool group. Several services can be saved and switched while one voice conversation continues. Voice uses named gateway choices that can cover several backends and speaking voices, or a model that runs on the phone. Hosts can publish actionable alerts that open the right page in the right service. Context-based progressive skill activation and external-browser provider login are design work, not current setup steps.
 
 [Architecture](./architecture) explains the boundaries. [Troubleshooting](./troubleshooting) covers failed discovery, authentication, and voice connections.

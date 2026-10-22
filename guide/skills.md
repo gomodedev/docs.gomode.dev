@@ -16,6 +16,8 @@ The Android shell currently uses the first tool group and registers the tools re
 
 The reusable [`mcp` package](https://github.com/maruel/gomode/tree/main/mcp) supplies HTTP transport and DTOs. Tool names, schemas, access rules, and side effects belong to your host. Keep your advertised protocol version aligned with the implementation.
 
+The names `hang_up`, `list_servers`, and `switch_server` are reserved for native voice commands. Use other names for your MCP tools and frontend tools.
+
 ## Service resources
 
 Expose `gomode://items` to give native voice a bounded snapshot of the current work:
@@ -32,7 +34,9 @@ Expose `gomode://items` to give native voice a bounded snapshot of the current w
 
 The host controls ordering, attention priority, bounds, and authorization. The gateway transports context as opaque text; it does not fetch or interpret your product state.
 
-For notifications, expose `gomode://notifications` as a JSON array with `id`, `title`, `body`, `occurredAt`, and `expiresAt`. The shell deduplicates and delivers events. The host generates and expires them.
+For notifications, expose `gomode://notifications` as an authoritative JSON array of the alerts that are actionable now. Each alert has `id`, `title`, and `body`. An optional `itemId` identifies the underlying work across alert occurrences, an optional `url` is a host-owned destination resolved against the saved service URL, and an optional `expiresAt` ends delivery.
+
+Your host owns the actionable state, the retention, and the expiry. The shell validates the whole snapshot before deduplicating by `id`, notifies only for alerts it has not posted yet, updates posted text without another sound, dismisses alerts you dropped, and honors expiry. A failed read supplies no snapshot, so it never withdraws an alert. Put display numbers in the title and stable IDs in the destination, because Android opens only HTTP(S) destinations on the saved service’s origin. Signal changes with `notifications/resources/updated`.
 
 Subscriptions invalidate resources: after a resource update, clients read the current value again. They are not a second source of product truth.
 
