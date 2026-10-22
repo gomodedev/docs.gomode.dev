@@ -43,8 +43,8 @@ Saving an existing service is automatic, including when you leave the screen. A 
 The service URL must be reachable from the phone. A phone’s `localhost` means the phone, not your development machine. Use a reachable address or a private network such as Tailscale. Android emulator access to a host machine commonly uses `10.0.2.2`; for local instrumented tests, the project runner configures `adb reverse`.
 
 <div class="native-gallery">
-<figure><img src="/screenshots/connections.webp" width="1080" height="2400" alt="Native service connections screen" loading="lazy"><figcaption>Saved service connections</figcaption></figure>
-<figure><img src="/screenshots/service-editor.webp" width="1080" height="2400" alt="Native Go Mode connection editor" loading="lazy"><figcaption>Add or edit a saved service</figcaption></figure>
+<figure><a class="docs-screenshot-link" href="/screenshots/connections.webp" target="_blank" rel="noopener"><img src="/screenshots/connections.webp" width="1080" height="2400" alt="Native service connections screen" loading="lazy"></a><figcaption>Saved service connections</figcaption></figure>
+<figure><a class="docs-screenshot-link" href="/screenshots/service-editor.webp" target="_blank" rel="noopener"><img src="/screenshots/service-editor.webp" width="1080" height="2400" alt="Native Go Mode connection editor" loading="lazy"></a><figcaption>Add or edit a saved service</figcaption></figure>
 </div>
 
 ## Choose how you speak
@@ -70,7 +70,7 @@ On-device speech does not mean the whole conversation works offline. Recognition
 
 The voice language is a BCP 47 tag, `en-US` by default. It sets the device speech language and the language the assistant replies in.
 
-<img class="native-capture" src="/screenshots/voice-settings.webp" width="1080" height="2400" alt="Native voice mode and language settings" loading="lazy">
+<a class="docs-screenshot-link docs-screenshot-link--capture" href="/screenshots/voice-settings.webp" target="_blank" rel="noopener"><img class="native-capture" src="/screenshots/voice-settings.webp" width="1080" height="2400" alt="Native voice mode and language settings" loading="lazy"></a>
 
 ### Install local model weights
 
@@ -110,6 +110,6 @@ Hosted file inputs open the Android system document picker, which lists Screensh
 
 Halo settings connect optional Brilliant Labs Halo glasses. The emulator capture shows configuration, not a verified physical-device connection.
 
-<img class="native-capture" src="/screenshots/halo.webp" width="1080" height="2400" alt="Native Halo glasses configuration" loading="lazy">
+<a class="docs-screenshot-link docs-screenshot-link--capture" href="/screenshots/halo.webp" target="_blank" rel="noopener"><img class="native-capture" src="/screenshots/halo.webp" width="1080" height="2400" alt="Native Halo glasses configuration" loading="lazy"></a>
 
 See [Troubleshooting](./troubleshooting) when the hosted page loads but native features remain unavailable.

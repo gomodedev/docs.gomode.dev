@@ -37,9 +37,9 @@ features:
 Go Mode owns Android, voice, and the shared host contract. [caic](https://docs.caic.xyz/caic/) owns coding-agent workflows; its task list, conversation, and review screens stay in its hosted frontend.
 
 <div class="native-gallery">
-<figure><img src="/screenshots/connections.webp" width="1080" height="2400" alt="Native Go Mode service connections screen" loading="lazy"><figcaption>Connect your own services</figcaption></figure>
-<figure><img src="/screenshots/hosted-service.webp" width="1080" height="2400" alt="Go Mode shell displaying the Field Notes demonstration service" loading="lazy"><figcaption>A hosted frontend inside the native shell</figcaption></figure>
-<figure><img src="/screenshots/voice-settings.webp" width="1080" height="2400" alt="Native Go Mode voice settings" loading="lazy"><figcaption>Choose voice mode and language</figcaption></figure>
+<figure><a class="docs-screenshot-link" href="/screenshots/connections.webp" target="_blank" rel="noopener"><img src="/screenshots/connections.webp" width="1080" height="2400" alt="Native Go Mode service connections screen" loading="lazy"></a><figcaption>Connect your own services</figcaption></figure>
+<figure><a class="docs-screenshot-link" href="/screenshots/hosted-service.webp" target="_blank" rel="noopener"><img src="/screenshots/hosted-service.webp" width="1080" height="2400" alt="Go Mode shell displaying the Field Notes demonstration service" loading="lazy"></a><figcaption>A hosted frontend inside the native shell</figcaption></figure>
+<figure><a class="docs-screenshot-link" href="/screenshots/voice-settings.webp" target="_blank" rel="noopener"><img src="/screenshots/voice-settings.webp" width="1080" height="2400" alt="Native Go Mode voice settings" loading="lazy"></a><figcaption>Choose voice mode and language</figcaption></figure>
 </div>
 
 Captures come from the running Android emulator. Field Notes is a demonstration service.
