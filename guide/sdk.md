@@ -7,8 +7,10 @@ Go Mode supplies generated TypeScript, Kotlin, and Swift clients for discovery, 
 The module is `github.com/maruel/gomode`:
 
 - root package: discovery handler, manifest DTOs, and voice token contracts;
-- `mcp`: MCP HTTP transport and DTOs;
+- `mcp`: MCP Streamable HTTP endpoint, resource subscriptions, and DTOs;
 - `oauth`: authorization-server, client, and token-verification packages;
+- `devicelogin`: browser pairing with explicit approval and host session issuance;
+- `httpserver`: trusted request metadata, host checks, access logs, tracing, and optional GeoIP;
 - `sse`: bounded Server-Sent Event frame delivery;
 - `voicegateway`: embedded and standalone voice infrastructure.
 
@@ -35,24 +37,38 @@ configureMcpClient("/api/my-service/mcp", "my-service-web");
 </HostModeProvider>;
 ```
 
-`HostModeProvider` detects the native shell and exposes whether browser voice and notifications should be enabled. The host keeps its product routing and state.
+The MCP endpoint must be a same-origin path or URL. `HostModeProvider` detects the native shell and exposes whether browser voice and notifications should be enabled. The host keeps its product routing and state.
 
-Import voice UI from `@maruel/gomode/web/VoiceOverlay` and settings from `@maruel/gomode/web/VoiceSettings`. Consult their source interfaces for required host-specific props; the package does not supply your product state or auth policy.
+| Module                                  | Purpose                                                                     |
+| --------------------------------------- | --------------------------------------------------------------------------- |
+| `@maruel/gomode/web/FrontendVoiceTools` | Bridge 3 authentication, frontend tool registration, and readiness          |
+| `@maruel/gomode/web/BrowserVoiceShell`  | Browser voice discovery, setup, and runtime                                 |
+| `@maruel/gomode/web/VoiceOverlay`       | Voice bar, transcript, and tool history                                     |
+| `@maruel/gomode/web/VoiceSettings`      | Voice mode, choice, speaking voice, speed, and language settings            |
+| `@maruel/gomode/web/VoiceMessages`      | English labels; `/de`, `/es`, and `/fr` hold translations                   |
+| `@maruel/gomode/web/notifications`      | Browser notification permission, delivery, dismissal, and voice suppression |
+| `@maruel/gomode/web/DeviceLogin`        | Device sign-in code display and approval                                    |
 
-`VoiceSettings` offers **Cloud voice** and **Browser speech**, the gateway choice, the speaking voice, and the voice language, and it saves each of them. An active session locks the voice mode and the language. The choice and the speaking voice come from the gateway’s discovery endpoint, so a host that offers several backends does not model them itself.
+[Authentication](./authentication) shows how to publish identity and register frontend tools. Frontend tools receive the conversation’s `sessionID`, an abort signal, and `isCurrent()`. Check `isCurrent()` after awaited work and before committing navigation or another host action. A call that runs longer than five seconds fails.
 
-`@maruel/gomode/web/notifications` provides browser notification permission, delivery, dismissal, and voice suppression. The host decides which product events become alerts and when they expire.
+`BrowserVoiceShell` takes the expected service and tool-group names, the client name, and the preparation scope. It discovers the manifest only in browser mode and only when the scope is ready. An external gateway needs a same-origin token endpoint and an `authorize(endpoint)` callback that performs the host’s token exchange. A missing discovery route means voice is unavailable; a malformed manifest is a setup error.
+
+`VoiceSettings` offers **Cloud voice** and **Browser speech**, the gateway choice, the speaking voice, the speaking speed, and the voice language, and it saves each of them. An active session locks the voice mode, the choice, and the language. The choices and speaking voices come from the gateway, so a host that offers several backends does not model them itself.
+
+The host decides which product events become alerts and when they expire. The [Android shell guide](https://github.com/maruel/gomode/blob/main/docs/ANDROID_SHELL.md#browser-integration) defines the browser integration contract.
 
 ## Generated clients
 
-| Surface                         | Reference                                                                              |
-| ------------------------------- | -------------------------------------------------------------------------------------- |
-| Discovery and skill frontmatter | [sdk/gomode](https://github.com/maruel/gomode/blob/main/sdk/gomode/API.md)             |
-| MCP                             | [sdk/mcp](https://github.com/maruel/gomode/blob/main/sdk/mcp/API.md)                   |
-| OAuth                           | [sdk/oauth](https://github.com/maruel/gomode/blob/main/sdk/oauth/API.md)               |
-| Voice gateway                   | [sdk/voicegateway](https://github.com/maruel/gomode/blob/main/sdk/voicegateway/API.md) |
+| Surface                         | Reference                                                                                                                                                                 |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Discovery and skill frontmatter | [sdk/gomode v1](https://github.com/maruel/gomode/blob/main/sdk/gomode/API.v1.md)                                                                                          |
+| MCP                             | [sdk/mcp v1](https://github.com/maruel/gomode/blob/main/sdk/mcp/API.v1.md)                                                                                                |
+| OAuth                           | [sdk/oauth v1](https://github.com/maruel/gomode/blob/main/sdk/oauth/API.v1.md)                                                                                            |
+| Voice gateway                   | [sdk/voicegateway v2](https://github.com/maruel/gomode/blob/main/sdk/voicegateway/API.v2.md), [v1](https://github.com/maruel/gomode/blob/main/sdk/voicegateway/API.v1.md) |
 
-TypeScript entry points are exported under `@maruel/gomode/sdk/<surface>/*`. Kotlin and Swift source lives beside each reference. The Android repository also includes the Halo SDK.
+Every SDK import names its protocol version; there are no unversioned exports. TypeScript entry points are `@maruel/gomode/sdk/gomode/v1/api.gen`, `sdk/mcp/v1/types.gen`, `sdk/oauth/v1/types.gen`, and `sdk/voicegateway/v2/api.gen` under the same package prefix. Kotlin packages end in `.sdk.v1` or `.sdk.v2`. Swift modules are `GoModeSDKV1`, `MCPSDKV1`, `OAuthSDKV1`, `VoiceGatewaySDKV1`, and `VoiceGatewaySDKV2`. The Android repository also includes the Halo SDK.
+
+Voice gateway v2 is the current signaling and data-channel contract. The gateway still serves v1 for clients built against the v0.3.0 release.
 
 After changing wire DTOs or routes in Go Mode, maintainers run:
 

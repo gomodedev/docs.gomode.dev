@@ -17,10 +17,10 @@ features:
     details: Keep your frontend, accounts, and product APIs. Go Mode discovers the host and adds native capabilities.
     link: /guide/architecture
   - title: Voice your way
-    details: Use cloud voice with a gateway speaking voice, or run a model on the phone. Conversation still calls your host’s MCP tools.
+    details: Pick a realtime model, compose recognition, LLM, and speech stages, or download a model to the phone. Conversation still calls your host’s MCP tools.
     link: /guide/voice
   - title: Several services at once
-    details: Save each service, switch the frontend between them, and keep one voice conversation and transcript.
+    details: Every saved service stays signed in and callable from one voice conversation. Dial a service from your car.
     link: /guide/android
   - title: Alerts you can open
     details: Host alerts arrive as notifications that open the right page in the right saved service.
