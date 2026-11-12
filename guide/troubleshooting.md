@@ -68,6 +68,12 @@ Go Mode blocks reconnecting until you select an available choice or speaking voi
 
 Voice lists the saved services that finished discovery. A service with a failed connection or an incompatible manifest is not callable until its connection succeeds, and the Services list shows its readiness and a retry action. Adding a second saved service also makes the **Next server** control appear.
 
+## A service or voice drops after a network change
+
+A cold start or a Wi-Fi to cellular handover can interrupt discovery. On network failures and HTTP 408, 429, and 5xx answers, Android retries the manifest fetch with backoff of up to 30 seconds, and the service card shows **Reconnecting**. Authentication, parse, and compatibility failures do not retry; reload the page or use the retry action.
+
+Android voice keeps the conversation while it reconnects for up to two minutes after the first loss. Gateway 401, 403, and 404 answers end the call. Check the gateway’s authorization and route when a call ends instead of recovering.
+
 ## Notifications do not arrive
 
 Check Android notification permission and the active service identity. Confirm the host publishes unexpired alerts through `gomode://notifications` and signals resource updates. Alerts already in the first snapshot after startup do not sound; only later additions do. The shell does not invent alerts from product status. Alerts for the service visible on screen are suppressed, and shared voice suppresses alerts for every participant.
