@@ -6,7 +6,7 @@ This repository owns docs.gomode.dev, built with VitePress and hosted as Cloudfl
 
 Read `/home/user/src/gomode/README.md` and the relevant source before updating pages; gomode documents contracts in comments beside the owning source and keeps no user guides. This site owns user and integration guides. Design plans are not shipped behavior. Native external-browser login and progressive skill activation must not be described as implemented until source proves them.
 
-Read current [Cloudflare documentation](https://developers.cloudflare.com/workers/static-assets/) before changing deployment configuration. Configure navigation in `.vitepress/config.ts` and presentation in `.vitepress/theme/`.
+Read current [Cloudflare documentation](https://developers.cloudflare.com/workers/static-assets/) before changing deployment configuration. Configure navigation in `.vitepress/config.ts` and presentation in `.vitepress/theme/`. Keep the theme palette equal to the Brand table in gomode.dev’s README.
 
 ## Last synced
 
