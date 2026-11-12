@@ -23,13 +23,13 @@ The pinned VitePress patch preserves the search opener before autofocus, so Esca
 
 ## Screenshots
 
-Generate the Android catalog in Go Mode, then import the page’s required scenarios:
+Generate the Android captures in Go Mode, then publish the ones the pages reference:
 
 ```bash
-pnpm run screenshots --source ../gomode/e2e/screenshots/android
+(cd ../gomode && uv run --locked python scripts/publish_screenshots.py ../docs.gomode.dev)
 ```
 
-The importer verifies provenance, hashes, WebP dimensions, and page references before replacing the capture directory. Publication uses two directory renames with a brief gap and retains a persistent previous catalog for interruption recovery. Unix imports serialize writers using an advisory lock. After a forced exit, rerun `--source` to recover; `--check` reports pending recovery without writing files. Builds use committed images without a sibling checkout or emulator. Screenshots show the running Android shell and a generic demonstration host, not caic’s task UI.
+`public/screenshots` then holds exactly the referenced captures; Git restores it if a copy is interrupted. `pnpm run verify` checks that the committed images match the page references. Builds use committed images without a sibling checkout or emulator. Screenshots show the running Android shell and a generic demonstration host, not caic’s task UI.
 
 ## Deploy
 
