@@ -115,7 +115,7 @@ Dialing a service contact starts voice for that service. Dialing the **Go Mode**
 
 During a locked car call, the call surface shows status, the transcript, audio routes, and hang-up; hosted pages stay behind the lock screen. **Show service on lock screen** shows the hosted service above the lock screen during car calls. Anyone holding the phone can then use your services without unlocking.
 
-Contact numbers come from a fictitious range and survive renames and URL changes. Recreate the contacts after you clear app data or move to another phone. The [upstream call control design](https://github.com/maruel/gomode/blob/main/docs/HFP_CALL_CONTROL.md) covers the details.
+Contact numbers come from a fictitious range and survive renames and URL changes. Recreate the contacts after you clear app data or move to another phone.
 
 ## Notifications
 

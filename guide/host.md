@@ -66,6 +66,10 @@ Each choice carries an ID, a label, and the transports it serves. An audio choic
 
 The choices come from `GET /api/voicegateway/v2/voice/choices` on the gateway. Mount the gateway with Go Mode’s handler, or run it as a service, and this endpoint needs no extra host code.
 
+## Publish resource updates
+
+Implement `mcp.SubscriptionRegistry` to signal resource changes. For released Streamable HTTP clients, create one `mcp.NewSessionStore` for the server lifetime and set it on `mcp.Handler.Sessions`. Its owner function returns a stable key for the authenticated principal, never a credential. Authenticate every request; a session ID grants nothing. Updates are invalidations: clients read the resource again. The [`mcp` package documentation](https://pkg.go.dev/github.com/maruel/gomode/mcp) covers the session lifecycle.
+
 ## Alerts
 
 Expose `gomode://notifications` as an authoritative snapshot of the alerts that are actionable now. During voice, a new alert also reaches the assistant. The [MCP and skills](./skills) page defines the fields, destination rules, reconciliation, and expiry; routing and retention stay in your host.
@@ -74,4 +78,4 @@ Expose `gomode://notifications` as an authoritative snapshot of the alerts that 
 
 The Android shell loads your frontend in a WebView. Product routes stay in your application. Native voice and notification controls complement the hosted UI; use [browser integration](./sdk) to avoid showing duplicate browser controls inside the shell.
 
-A real adapter example is [caic’s server](https://github.com/caic-xyz/caic/tree/main/backend/internal/server). The reusable contract is in [Go Mode’s server library guide](https://github.com/maruel/gomode/blob/main/docs/SERVER_LIBRARY.md).
+A real adapter example is [caic’s server](https://github.com/caic-xyz/caic/tree/main/backend/internal/server). The [Go package documentation](https://pkg.go.dev/github.com/maruel/gomode) holds the reusable contracts.

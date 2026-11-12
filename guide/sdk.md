@@ -55,7 +55,9 @@ The MCP endpoint must be a same-origin path or URL. `HostModeProvider` detects t
 
 `VoiceSettings` offers **Cloud voice** and **Browser speech**, the gateway choice, the speaking voice, the speaking speed, and the voice language, and it saves each of them. An active session locks the voice mode, the choice, and the language. The choices and speaking voices come from the gateway, so a host that offers several backends does not model them itself.
 
-The host decides which product events become alerts and when they expire. The [Android shell guide](https://github.com/maruel/gomode/blob/main/docs/ANDROID_SHELL.md#browser-integration) defines the browser integration contract.
+The host decides which product events become alerts and when they expire.
+
+`authorize(endpoint)` owns the host’s token exchange: its method, headers, response validation, and session policy. Capture the owning host session in it instead of looking up a replacement identity after an await. The optional `mcpEndpoint` decorator binds the validated endpoint to captured host authority, and `gatewayHeaders` go only to same-origin gateway signaling. The gateway origin must use HTTPS, except `localhost` and loopback addresses during development. The [`BrowserVoiceShell` source](https://github.com/maruel/gomode/blob/main/web/src/BrowserVoiceShell.tsx) defines the full contract.
 
 ## Generated clients
 

@@ -9,7 +9,7 @@ Go Mode’s gateway connects clients to a voice backend through one service-neut
 | Embedded   | Voice runs with the host process                                  | Host session policy            |
 | Standalone | Voice needs a separate machine, scaling, or local model isolation | Short-lived host-issued tokens |
 
-Embedded hosts mount `voicegateway.NewEmbeddedHandler` and advertise the gateway URL in discovery. An external gateway runs `voice-gateway` and accepts only configured trusted issuers.
+Embedded hosts mount `voicegateway.NewEmbeddedHandler` and advertise the gateway URL in discovery. Embed `voicegateway.Config` under a section of the host’s TOML file; the same `[[realtime]]`, `[[llm]]`, `[[asr]]`, `[[tts]]`, and `[[voice]]` entries apply. The [`Config` documentation](https://pkg.go.dev/github.com/maruel/gomode/voicegateway#Config) lists the startup calls. An external gateway runs `voice-gateway` and accepts only configured trusted issuers.
 
 ## Install the standalone gateway
 
@@ -104,7 +104,9 @@ The gateway derives each choice ID from its effective settings. Changing a model
 
 Clients save the choice per gateway URL and the speaking voice per gateway and choice. Every new session pins both. When a saved choice or speaking voice disappears, connecting is blocked until the user selects an available one, while active sessions keep the values they already resolved.
 
-For detailed engine configuration and platform requirements, use [the upstream local-stack guide](https://github.com/maruel/gomode/blob/main/docs/VOICE_LOCAL_STACK.md).
+### Local stages
+
+A fully local stack needs `uv` on the gateway’s `PATH` and stages that need no provider API key. For managed llama.cpp speech, omit `remote`; to use a speech server you run, set `remote` to its origin. A recognition stage with `streaming = true` transcribes while you speak. For single-model audio instead of separate stages, use an LFM3 `[[realtime]]` choice; `staged = true` adds a text step for thinking and tool calls before LFM3 speaks. [contrib/config.toml](https://github.com/maruel/gomode/blob/main/contrib/config.toml) holds complete examples.
 
 ## Audio and text modes
 

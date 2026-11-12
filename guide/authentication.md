@@ -66,4 +66,8 @@ The host supplies approver identity, login eligibility, audit persistence, and s
 
 Some identity providers reject embedded WebView login or require browser-only capabilities. The current shell does not implement the external-browser login handoff described in the repository’s design notes. Test your host’s actual login flow on Android; do not assume that desktop login proves WebView compatibility.
 
-The authoritative bridge behavior is in [the Android shell guide](https://github.com/maruel/gomode/blob/main/docs/ANDROID_SHELL.md#hosted-authentication).
+## Several services on one origin
+
+Saved services share Android WebView cookies, so services on one origin share a cookie identity. An `authChanging` or logout from one page pauses its same-origin peers at once, while a new sign-in grants access only to the page that reported it. Each page reports its own settled identity.
+
+The authoritative bridge behavior is in [ServiceBearerStore.kt](https://github.com/maruel/gomode/blob/main/android/gomode/src/main/java/com/fghbuild/gomode/ui/web/ServiceBearerStore.kt) and [ServiceShellSession.kt](https://github.com/maruel/gomode/blob/main/android/gomode/src/main/java/com/fghbuild/gomode/ui/web/ServiceShellSession.kt).

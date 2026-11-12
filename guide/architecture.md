@@ -51,4 +51,4 @@ The root Go package is small: discovery and voice-token contracts. Heavy media a
 
 The Android shell has no caic task SDK dependency or hard-coded task route. caic’s task list, details, diffs, and widgets stay in its hosted web frontend. Other hosts can expose different products through the same shell.
 
-See [the server library guide](https://github.com/maruel/gomode/blob/main/docs/SERVER_LIBRARY.md) for dependency rules and [the Android shell guide](https://github.com/maruel/gomode/blob/main/docs/ANDROID_SHELL.md) for native contract details.
+The [Go package documentation](https://pkg.go.dev/github.com/maruel/gomode) states the dependency rules. Native contracts are documented beside their Android source, which the [Android file index](https://github.com/maruel/gomode/blob/main/android/gomode/AGENTS.md#file-index) lists.
