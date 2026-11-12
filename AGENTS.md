@@ -18,9 +18,13 @@ Each guide page starts with one H1. Use H2 and H3 sections, language-tagged code
 
 Install hooks with `scripts/install-git-hooks.sh` before changes. Run `pnpm run fix`, `pnpm run verify`, `pnpm run build`, and `pnpm exec wrangler deploy --dry-run`. Verify desktop/mobile navigation, local search, keyboard interaction, screenshots, and 404 responses in a browser.
 
+## VitePress patch
+
+`patches/vitepress@1.6.4.patch`, applied through `patchedDependencies` in `pnpm-workspace.yaml`, makes local search return focus to the Search button when Escape closes it. Without it, focus falls to the page body and keyboard users lose their place. `tests/site.spec.ts` checks it. VitePress 1.6.4 and 2.0.0-alpha.21 still lack the fix. When VitePress changes version, keep the patch only if the new `VPLocalSearchBox.vue` still omits `setReturnFocus`, and regenerate it with `pnpm patch vitepress`.
+
 ## Captures
 
-Go Mode produces WebP captures in `e2e/screenshots/android`. Publish the referenced captures with `uv run --locked python scripts/publish_screenshots.py ../docs.gomode.dev` from the gomode checkout. The hosted-service scenario is a generic demonstration frontend. Do not imply that it is caic’s task UI or that Halo settings prove a physical device connection.
+Go Mode produces WebP captures in `e2e/screenshots/android`. Publish the referenced captures with `uv run --locked python scripts/publish_screenshots.py ../docs.gomode.dev` from the gomode checkout. `public/favicon.svg` is generated from the Android launcher icon; publish it with `uv run --locked python scripts/publish_favicon.py ../docs.gomode.dev` from the gomode checkout and never edit it by hand. The hosted-service scenario is a generic demonstration frontend. Do not imply that it is caic’s task UI or that Halo settings prove a physical device connection.
 
 Builds use committed captures without a sibling checkout or emulator. Do not hand-edit generated images. External Workers Builds and custom-domain setup is documented in README.md.
 

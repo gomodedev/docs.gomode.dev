@@ -21,12 +21,13 @@ The suite checks desktop and mobile layout, keyboard navigation, image loading, 
 
 The pinned VitePress patch preserves the search opener before autofocus, so Escape restores keyboard focus. The browser suite covers that regression.
 
-## Screenshots
+## Go Mode publishes the screenshots and favicon
 
-Generate the Android captures in Go Mode, then publish the ones the pages reference:
+Generate the Android captures in Go Mode, then publish the captures the pages reference and the favicon:
 
 ```bash
 (cd ../gomode && uv run --locked python scripts/publish_screenshots.py ../docs.gomode.dev)
+(cd ../gomode && uv run --locked python scripts/publish_favicon.py ../docs.gomode.dev)
 ```
 
 `public/screenshots` then holds exactly the referenced captures; Git restores it if a copy is interrupted. `pnpm run verify` checks that the committed images match the page references. Builds use committed images without a sibling checkout or emulator. Screenshots show the running Android shell and a generic demonstration host, not caic’s task UI.
