@@ -90,6 +90,6 @@ Check **Dial from your car** in Settings: it reports whether Go Mode holds Andro
 
 ## Capture or emulator development
 
-The upstream Makefile provides emulator startup, shell e2e, and screenshot targets. Documentation screenshots show real native screens and a generic demonstration host; they do not prove physical Halo pairing or live cloud-model connectivity.
+The upstream Makefile provides emulator startup, shell e2e, and screenshot targets. Documentation screenshots show real native screens and the caic and mddb browser frontends with sample data. They do not prove physical Halo pairing or live cloud-model connectivity.
 
 [Android setup](./android), [host integration](./host), and [voice gateway](./voice) cover the corresponding setup steps.

@@ -2,6 +2,8 @@
 
 Go Mode’s gateway connects clients to a voice backend through one service-neutral contract. It handles conversation and media transport; clients execute host tools through MCP.
 
+The voice gateway supports Windows, macOS, and Linux. Clients connect from the web or the native Android app.
+
 ## Choose a deployment
 
 | Mode       | Use it when                                                       | Authentication                 |

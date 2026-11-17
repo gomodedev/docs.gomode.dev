@@ -21,16 +21,18 @@ The suite checks desktop and mobile layout, keyboard navigation, image loading, 
 
 The pinned VitePress patch preserves the search opener before autofocus, so Escape restores keyboard focus. The browser suite covers that regression.
 
-## Go Mode publishes the screenshots and favicon
+## This site imports screenshots; Go Mode publishes the favicon
 
-Generate the Android captures in Go Mode, then publish the captures the pages reference and the favicon:
+Native Android captures come from Go Mode; real host frontend captures come from caic and mddb. Refresh captures in their owning repository with `make screenshots-update`, then publish the captures the pages reference and the favicon:
 
 ```bash
-(cd ../gomode && uv run --locked python scripts/publish_screenshots.py ../docs.gomode.dev)
+uv run --locked python scripts/publish_screenshots.py
 (cd ../gomode && uv run --locked python scripts/publish_favicon.py ../docs.gomode.dev)
 ```
 
-`public/screenshots` then holds exactly the referenced captures; Git restores it if a copy is interrupted. `pnpm run verify` checks that the committed images match the page references. Builds use committed images without a sibling checkout or emulator. Screenshots show the running Android shell and a generic demonstration host, not caic’s task UI.
+Importing screenshots requires sibling `gomode`, `caic`, and `mddb` checkouts. This site’s `scripts/publish_screenshots.py` maps each image to its owning suite; Go Mode does not depend on its host applications.
+
+`public/screenshots` then holds exactly the referenced captures; Git restores it if a copy is interrupted. `pnpm run verify` checks that the committed images match the page references. Builds use committed images without a sibling checkout or emulator. Native screenshots show the running Android shell. Browser screenshots show the real caic and mddb frontends with sample data from their screenshot suites.
 
 ## Deploy
 

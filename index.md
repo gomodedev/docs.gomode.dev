@@ -1,10 +1,10 @@
 ---
-# Go Mode documentation homepage with Android setup and host integration entry points.
+# Go Mode documentation homepage with supported platforms, real host captures, and integration entry points.
 layout: home
 hero:
   name: Go Mode
   text: Your app. Hands free.
-  tagline: A native Android shell and voice platform for your own web app.
+  tagline: Voice for your web app. Web and Android clients, with a gateway for Windows, macOS, and Linux.
   actions:
     - theme: brand
       text: Set up Android
@@ -34,14 +34,20 @@ features:
 
 ## Start from the running product
 
-Go Mode owns Android, voice, and the shared host contract. [caic](https://docs.caic.xyz/caic/) owns coding-agent workflows; its task list, conversation, and review screens stay in its hosted frontend.
+Go Mode connects web and Android clients to a voice gateway on Windows, macOS, or Linux. Hosts keep their own interfaces, accounts, and tools: [caic](https://caic.xyz) manages coding agents, and [mddb](https://mddb.app) manages documents and databases.
+
+<div class="host-gallery">
+<figure><a class="docs-screenshot-link" href="/screenshots/caic-tasks.webp" target="_blank" rel="noopener"><img src="/screenshots/caic-tasks.webp" width="1280" height="800" alt="caic's coding-agent task dashboard" loading="lazy"></a><figcaption>caic · Coding agents in parallel</figcaption></figure>
+<figure><a class="docs-screenshot-link" href="/screenshots/mddb-editor.webp" target="_blank" rel="noopener"><img src="/screenshots/mddb-editor.webp" width="1280" height="800" alt="mddb's document editor and workspace navigation" loading="lazy"></a><figcaption>mddb · Documents and databases</figcaption></figure>
+</div>
+
+These captures render the real caic and mddb frontends with sample data from their screenshot suites.
 
 <div class="native-gallery">
 <figure><a class="docs-screenshot-link" href="/screenshots/connections.webp" target="_blank" rel="noopener"><img src="/screenshots/connections.webp" width="720" height="1600" alt="Native Go Mode service connections screen" loading="lazy"></a><figcaption>Connect your own services</figcaption></figure>
-<figure><a class="docs-screenshot-link" href="/screenshots/hosted-service.webp" target="_blank" rel="noopener"><img src="/screenshots/hosted-service.webp" width="720" height="1600" alt="Go Mode shell displaying the Field Notes demonstration service" loading="lazy"></a><figcaption>A hosted frontend inside the native shell</figcaption></figure>
 <figure><a class="docs-screenshot-link" href="/screenshots/voice-settings.webp" target="_blank" rel="noopener"><img src="/screenshots/voice-settings.webp" width="720" height="1600" alt="Native Go Mode voice settings" loading="lazy"></a><figcaption>Choose each voice stage and language</figcaption></figure>
 </div>
 
-Captures come from the running Android emulator. Field Notes is a demonstration service.
+The native connections and voice settings captures come from the running Android emulator.
 
 </div>

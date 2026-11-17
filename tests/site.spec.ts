@@ -1,5 +1,24 @@
-// Browser acceptance for Go Mode guides, local search, native captures, mobile navigation, and keyboard access.
+// Browser acceptance for Go Mode host galleries, guides, local search, mobile navigation, and keyboard access.
 import { expect, test } from "@playwright/test";
+
+test("homepage loads real host captures without horizontal overflow", async ({ page }, info) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+  await page.goto("/");
+  for (const image of await page.locator("main img").all()) {
+    await image.scrollIntoViewIfNeeded();
+    await expect(image).toBeVisible();
+    await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+    await image.evaluate((element) => (element as HTMLImageElement).decode());
+    await expect(image).toHaveAttribute("alt", /.+/);
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.screenshot({ path: info.outputPath("homepage.png"), fullPage: true });
+  expect(errors).toEqual([]);
+});
 
 test("documentation supports Android setup, search, and responsive navigation", async ({ page }, info) => {
   const errors: string[] = [];
