@@ -68,7 +68,8 @@ export default defineConfig({
     },
     footer: {
       message: "Go Mode owns the shell. Your host owns the product.",
-      copyright: 'Open source · <a href="https://gomode.dev">gomode.dev</a>',
+      copyright:
+        'Open source under the AGPL v3 · <a href="mailto:licensing@gomode.dev">Commercial&nbsp;license</a> · <a href="https://gomode.dev">gomode.dev</a>',
     },
   },
 });

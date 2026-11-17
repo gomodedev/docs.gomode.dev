@@ -22,3 +22,7 @@ For coding-agent setup, use [caic’s documentation](https://docs.caic.xyz/caic/
 The Android app loads each service’s first advertised MCP tool group. Every saved service stays signed in, and one voice conversation follows the service on screen. Voice uses a realtime model, or separate recognition, language model, and speech stages that each run on the gateway or the phone. A car can start voice by dialing a saved service. Hosts can publish actionable alerts that open the right page in the right service. Context-based progressive skill activation and external-browser provider login are design work, not current setup steps.
 
 [Architecture](./architecture) explains the boundaries. [Troubleshooting](./troubleshooting) covers failed discovery, authentication, and voice connections.
+
+## License
+
+Go Mode, including its Go packages, browser package, generated SDKs, and Android app, is licensed under the [GNU Affero General Public License v3](https://github.com/maruel/gomode/blob/main/LICENSE). Review its terms before you embed Go Mode in your host. For a commercial license, contact [licensing@gomode.dev](mailto:licensing@gomode.dev).
