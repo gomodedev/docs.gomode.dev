@@ -44,7 +44,7 @@ The MCP endpoint must be a same-origin path or URL. `HostModeProvider` detects t
 | `@maruel/gomode/web/FrontendVoiceTools` | Bridge 3 authentication, frontend tool registration, and readiness          |
 | `@maruel/gomode/web/BrowserVoiceShell`  | Browser voice discovery, setup, and runtime                                 |
 | `@maruel/gomode/web/VoiceOverlay`       | Voice bar, transcript, and tool history                                     |
-| `@maruel/gomode/web/VoiceSettings`      | Voice mode, choice, speaking voice, speed, and language settings            |
+| `@maruel/gomode/web/VoiceSettings`      | Voice setup, speech stages, speaking voice, speed, and language settings    |
 | `@maruel/gomode/web/VoiceMessages`      | English labels; `/de`, `/es`, and `/fr` hold translations                   |
 | `@maruel/gomode/web/notifications`      | Browser notification permission, delivery, dismissal, and voice suppression |
 | `@maruel/gomode/web/DeviceLogin`        | Device sign-in code display and approval                                    |
@@ -53,7 +53,7 @@ The MCP endpoint must be a same-origin path or URL. `HostModeProvider` detects t
 
 `BrowserVoiceShell` takes the expected service and tool-group names, the client name, and the preparation scope. It discovers the manifest only in browser mode and only when the scope is ready. An external gateway needs a same-origin token endpoint and an `authorize(endpoint)` callback that performs the host’s token exchange. A missing discovery route means voice is unavailable; a malformed manifest is a setup error.
 
-`VoiceSettings` offers **Cloud voice** and **Browser speech**, the gateway choice, the speaking voice, the speaking speed, and the voice language, and it saves each of them. An active session locks the voice mode, the choice, and the language. The choices and speaking voices come from the gateway, so a host that offers several backends does not model them itself.
+`VoiceSettings` offers the same setup as Android: **All-in-one** with a realtime model, or **Separate stages** with **Recognition**, **Language model**, and **Speech**, where **Browser** selects the browser’s speech APIs. It also offers the voice language, speaking voice, and speaking speed, and saves each of them. An active session locks them. The choices, models, and speaking voices come from the gateway, so a host that offers several backends does not model them itself.
 
 The host decides which product events become alerts and when they expire.
 
@@ -72,10 +72,10 @@ Every SDK import names its protocol version; there are no unversioned exports. T
 
 Voice gateway v2 is the current signaling and data-channel contract. The gateway still serves v1 for clients built against the v0.3.0 release.
 
-After changing wire DTOs or routes in Go Mode, maintainers run:
+After changing wire DTOs or routes in Go Mode, maintainers regenerate the SDKs with:
 
 ```bash
-make generate-sdks
+make fix
 ```
 
 Consumers use the generated clients; generated files are not edited by hand. [The upstream package manifest](https://github.com/maruel/gomode/blob/main/package.json) is the source of truth for exports and peer dependencies.

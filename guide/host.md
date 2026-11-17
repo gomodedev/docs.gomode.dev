@@ -60,9 +60,9 @@ The shell uses each service’s first tool group. Do not rely on progressive ski
 
 ## Offer voice choices
 
-A gateway can offer several named voice choices at one URL. The shell lists the choices your gateway advertises, filters them by transport, and saves the user’s choice and speaking voice for that gateway.
+A gateway can offer several named voice choices at one URL, plus recognition and synthesis models for separate stages. The shell lists what your gateway advertises and saves the user’s selections for that gateway.
 
-Each choice carries an ID, a label, and the transports it serves. An audio choice that supports voice selection also lists its speaking voices. A text-only choice appears only where the client handles speech. See [voice gateway](./voice) for the configuration.
+Each choice carries the `id` from the gateway configuration, a label, and the transports it serves. An audio choice that supports voice selection also lists its speaking voices. A text-only choice appears only where the client handles speech. See [voice gateway](./voice) for the configuration.
 
 The choices come from `GET /api/voicegateway/v2/voice/choices` on the gateway. Mount the gateway with Go Mode’s handler, or run it as a service, and this endpoint needs no extra host code.
 

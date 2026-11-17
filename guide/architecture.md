@@ -23,12 +23,12 @@ After a confirmed login signal and frontend preparation, native MCP and voice re
 ## Voice tool flow
 
 1. The client discovers each service’s tool group and the gateway of the service that starts voice.
-2. It reads each service’s MCP instructions and model context resources.
+2. It reads the active service’s MCP instructions and model context resources.
 3. It starts a voice or text session with the gateway.
 4. The gateway requests a tool call.
 5. The client executes it through the owning host’s MCP endpoint or frontend and returns the result.
 
-Native voice exposes every ready service through three catalog tools: `discover_service`, `dispatch_service_tool`, and `read_service_resource`. A call names its service and tool, and the client validates the arguments against that tool’s schema before execution. A call for an unavailable service fails; it never reaches another service.
+Native voice exposes the active service through three catalog tools: `discover_service`, `dispatch_service_tool`, and `read_service_resource`. A call targets the active service; an optional `server_id` must name it, so a call prepared before a switch fails instead of reaching the new service. The client validates the arguments against the tool’s schema before execution. Hidden services keep monitoring, and their alerts still reach the conversation.
 
 The gateway does not call the host’s MCP endpoint itself and does not own service-item state. The host authorizes each action.
 

@@ -32,46 +32,47 @@ The debug application ID is `com.fghbuild.gomode`. Build targets and prerequisit
 4. Tap the check mark to add the service.
 5. Sign in through the host’s frontend when required.
 
-Each saved service is a card with its alias, URL, readiness, and any connection error. A failed connection shows a retry action. **Needs attention** marks a hosted page that waits for you, and **Active** marks the service on screen.
+Each saved service is a card with its alias, URL, readiness, and any connection error. A failed connection shows a retry action. A service you have not opened shows **Not loaded yet** and a **Load page** action that loads it without switching to it. **Needs attention** marks a hosted page that waits for you, and **Active** marks the service on screen.
 
 The edit action turns the card into its editor. Go Mode saves changes automatically, and the check mark closes the editor. The delete action asks for confirmation. Go Mode rejects an alias or URL that another saved service already uses, ignoring alias case. A service cannot be deleted during a voice session.
 
 The service URL must be reachable from the phone. A phone’s `localhost` means the phone, not your development machine. Use a reachable address or a private network such as Tailscale. Android emulator access to a host machine commonly uses `10.0.2.2`; for local instrumented tests, the project runner configures `adb reverse`.
 
 <div class="native-gallery">
-<figure><a class="docs-screenshot-link" href="/screenshots/connections.webp" target="_blank" rel="noopener"><img src="/screenshots/connections.webp" width="1080" height="2400" alt="Native service connections screen" loading="lazy"></a><figcaption>Saved service connections</figcaption></figure>
-<figure><a class="docs-screenshot-link" href="/screenshots/service-editor.webp" target="_blank" rel="noopener"><img src="/screenshots/service-editor.webp" width="1080" height="2400" alt="Native Go Mode connection editor" loading="lazy"></a><figcaption>Add or edit a saved service</figcaption></figure>
+<figure><a class="docs-screenshot-link" href="/screenshots/connections.webp" target="_blank" rel="noopener"><img src="/screenshots/connections.webp" width="720" height="1600" alt="Native service connections screen" loading="lazy"></a><figcaption>Saved service connections</figcaption></figure>
+<figure><a class="docs-screenshot-link" href="/screenshots/service-editor.webp" target="_blank" rel="noopener"><img src="/screenshots/service-editor.webp" width="720" height="1600" alt="Native Go Mode connection editor" loading="lazy"></a><figcaption>Add or edit a saved service</figcaption></figure>
 </div>
 
 ## Choose how you speak
 
-In native Settings, select **Cloud voice** or **On-device voice**, then set the voice language. Go Mode locks the mode, the voice choice, and the language while a voice session connects or stays active.
+Under **Voice** in native Settings, select a setup. Go Mode locks the voice settings while a voice session connects or stays active.
 
-### Cloud voice
+- **All-in-one:** the **Model** chips list the realtime choices your gateway advertises. One model handles recognition, conversation, and speech.
+- **Separate stages:** pick **Recognition**, **Language model**, and **Speech** independently. **Local** recognition and speech run on Android; the other chips are the gateway’s models.
 
-Cloud voice sends microphone audio over WebRTC and plays the audio the gateway returns. The **Model** list shows the audio choices your gateway advertises, and each new session uses the choice you saved. When the selected choice advertises speaking voices, a **Speaking voice** list selects the voice you hear; **Provider default** keeps the provider’s voice. [Voice gateway](./voice) covers how a gateway offers those choices.
+The **Language model** chips list the gateway’s language models, then a **Local** group of on-device models:
 
-### On-device voice
+- **Gemma 4** and **LFM3** variants run on the phone through LiteRT-LM.
+- **Whistle + Needle** is an experimental pair that matches recognized speech to tool actions. It does not use a conversational language model.
 
-On-device voice uses Android recognition for speech and Android text to speech for replies. The **Engine** choice decides what handles each turn:
+An on-device language model needs Local recognition and speech. Its turns run on the device; tool calls still reach the host through MCP. Without a saved service, choose a local model; a gateway model needs a service.
 
-- **Remote LLM:** the transcript goes to the gateway’s text session. The gateway supplies the language model and the device supplies speech. The **LLM** list selects a text-capable gateway choice.
-- **Local LLM:** a LiteRT-LM model runs on the phone. The **Model** list selects the weights.
-- **Whistle + Needle:** an experimental pair that matches recognized speech to tool actions. It does not use a conversational language model.
+On-device speech does not mean the whole conversation works offline. Recognition availability and processing depend on Android and the installed speech service.
 
-Local LLM turns run on the device. Tool calls still reach the host through MCP.
+The **Voice language** is a BCP 47 tag, `en-US` by default. It applies to recognition, speech, and replies, and filters the **Speaking voice** list to the voices of that language. Gateway speech offers **Provider default** or the gateway’s voices; Local speech offers **Local default** or Android’s voices, and a **Speaking speed**. [Voice gateway](./voice) covers how a gateway offers its choices.
 
-On-device speech does not mean the whole conversation works offline. Recognition availability and processing depend on Android and the installed speech service. Remote LLM needs a compatible gateway.
+Until you pick, Go Mode follows the gateway’s default setup. When the gateway withdraws a saved choice, Settings shows the default the session uses instead.
 
-The voice language is a BCP 47 tag, `en-US` by default. It sets the device speech language and the language the assistant replies in.
+Under **Display**, **Show assistant reasoning** and **Show usage stats** add the model’s reasoning and token counts to the transcript. **Thinking music** plays while the assistant works; its control previews it.
 
-**Show assistant reasoning** and **Show usage stats** add the model’s reasoning and token counts to the transcript. **Thinking music** plays while the assistant works; its control previews it.
-
-<a class="docs-screenshot-link docs-screenshot-link--capture" href="/screenshots/voice-settings.webp" target="_blank" rel="noopener"><img class="native-capture" src="/screenshots/voice-settings.webp" width="1080" height="2400" alt="Native voice mode and language settings" loading="lazy"></a>
+<div class="native-gallery">
+<figure><a class="docs-screenshot-link" href="/screenshots/voice-settings-all-in-one.webp" target="_blank" rel="noopener"><img src="/screenshots/voice-settings-all-in-one.webp" width="720" height="1600" alt="Native all-in-one voice setup with a realtime model" loading="lazy"></a><figcaption>All-in-one</figcaption></figure>
+<figure><a class="docs-screenshot-link" href="/screenshots/voice-settings.webp" target="_blank" rel="noopener"><img src="/screenshots/voice-settings.webp" width="720" height="1600" alt="Native separate-stages voice setup with recognition, language model, and speech chips" loading="lazy"></a><figcaption>Separate stages</figcaption></figure>
+</div>
 
 ### Download a local model
 
-Select **Local LLM**, select a model, and tap **Download model**.
+Select a model in the **Local** group of **Language model**, then tap **Download model**.
 
 | Model             | Context limit |
 | ----------------- | ------------- |
@@ -91,13 +92,13 @@ The voice bar sits at the bottom of the hosted page. The microphone button cycle
 - **Mute once:** the microphone stays closed until the current reply ends or you interrupt it.
 - **Muted:** the microphone stays closed until you unmute it.
 
-The assistant can call `mute` when you ask it to mute you; it uses **Mute once**. Speaking during a reply interrupts it. Ended conversations stay behind the **Transcript** control. **Recent tool calls** lists the tools the assistant ran.
+The assistant can call `mute` when you ask it to mute you; it uses **Mute once**. Speaking during a reply interrupts it. A voice error stays in the panel until you dismiss it or connect again. Ended conversations stay behind the **Transcript** control. **Recent tool calls** lists the tools the assistant ran.
 
 ## Use several services
 
-Every ready saved service stays callable. Switching the visible service keeps one conversation, transport, transcript, and foreground notification.
+Every ready saved service stays signed in and monitored. Voice reaches only the service on screen: its context and its tools. Switching the visible service keeps one conversation, transport, transcript, and foreground notification, and the assistant announces a switch you make.
 
-Voice can list the saved services and switch between them. The **Next server** control beside Settings cycles saved services in their saved order and wraps to the first. It works with voice active, idle, or unavailable, and appears once two services are saved.
+Voice can list the saved services and switch between them. Alerts from hidden services still reach the conversation. The **Next server** control beside Settings cycles saved services in their saved order and wraps to the first. It works with voice active, idle, or unavailable, and appears once two services are saved.
 
 `hang_up` ends the voice session. Whistle + Needle does not offer the native voice commands.
 
@@ -133,6 +134,6 @@ Hosted file inputs open the Android system document picker, which lists Screensh
 
 Halo settings connect optional Brilliant Labs Halo glasses. The emulator capture shows configuration, not a verified physical-device connection.
 
-<a class="docs-screenshot-link docs-screenshot-link--capture" href="/screenshots/halo.webp" target="_blank" rel="noopener"><img class="native-capture" src="/screenshots/halo.webp" width="1080" height="2400" alt="Native Halo glasses configuration" loading="lazy"></a>
+<a class="docs-screenshot-link docs-screenshot-link--capture" href="/screenshots/halo.webp" target="_blank" rel="noopener"><img class="native-capture" src="/screenshots/halo.webp" width="720" height="1600" alt="Native Halo glasses configuration" loading="lazy"></a>
 
 See [Troubleshooting](./troubleshooting) when the hosted page loads but native features remain unavailable.
