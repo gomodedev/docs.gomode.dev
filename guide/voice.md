@@ -29,12 +29,12 @@ Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/gomodedev/g
 & "$env:TEMP\install-voice-gateway.ps1"
 ```
 
-| Setting          | Linux                                        | macOS                                   | Windows                               |
-| ---------------- | -------------------------------------------- | --------------------------------------- | ------------------------------------- |
-| Binary directory | `~/.local/bin`                               | `~/.local/bin`                          | `%LOCALAPPDATA%\voice-gateway`        |
-| Credentials file | `~/.config/systemd/user/voice-gateway.env`   | Beside the configuration                | Beside the executable                 |
-| Service          | systemd user `voice-gateway.service`         | launchd user `com.maruel.voice-gateway` | Scheduled task `GoModeVoiceGateway`   |
-| Logs             | `journalctl --user -u voice-gateway.service` | `~/Library/Logs/voice-gateway.log`      | `voice-gateway.log` beside executable |
+| Setting          | Linux                                        | macOS                                     | Windows                               |
+| ---------------- | -------------------------------------------- | ----------------------------------------- | ------------------------------------- |
+| Binary directory | `~/.local/bin`                               | `~/.local/bin`                            | `%LOCALAPPDATA%\voice-gateway`        |
+| Credentials file | `~/.config/systemd/user/voice-gateway.env`   | Beside the configuration                  | Beside the executable                 |
+| Service          | systemd user `voice-gateway.service`         | launchd user `com.fghbuild.voice-gateway` | Scheduled task `GoModeVoiceGateway`   |
+| Logs             | `journalctl --user -u voice-gateway.service` | `~/Library/Logs/voice-gateway.log`        | `voice-gateway.log` beside executable |
 
 The configuration is `~/.config/voice-gateway/config.toml`, or under `XDG_CONFIG_HOME` when set. Start from [contrib/config.toml](https://github.com/gomodedev/gomode/blob/main/contrib/config.toml). Replace the example trusted issuer before accepting clients. The gateway restarts when `config.toml` or `voice-choices.toml` changes.
 
