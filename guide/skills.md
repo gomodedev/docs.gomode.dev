@@ -14,7 +14,7 @@ Each `webShell.toolGroups` entry includes:
 
 The Android shell uses each service’s first tool group and registers the tools returned by that endpoint. Progressive activation, location triggers, and selective multi-skill activation remain planned behavior.
 
-The reusable [`mcp` package](https://github.com/maruel/gomode/tree/main/mcp) supplies HTTP transport and DTOs. Tool names, schemas, access rules, and side effects belong to your host. Keep your advertised protocol version aligned with the implementation.
+The reusable [`mcp` package](https://github.com/gomodedev/gomode/tree/main/mcp) supplies HTTP transport and DTOs. Tool names, schemas, access rules, and side effects belong to your host. Keep your advertised protocol version aligned with the implementation.
 
 The names `hang_up`, `mute`, `list_servers`, and `switch_server` are reserved for native voice commands. Go Mode rejects an MCP or frontend tool with one of these names.
 
@@ -48,6 +48,6 @@ Subscriptions invalidate resources: after a resource update, clients read the cu
 
 A `SKILL.md` file combines model instructions with structured frontmatter for MCP server wiring and tool allowlists. The schema supports local activation hints, but the current Android shell does not progressively activate skills from those hints.
 
-Start from [the upstream tasks example](https://github.com/maruel/gomode/blob/main/examples/tasks/SKILL.md) and [the generated discovery SDK reference](https://github.com/maruel/gomode/blob/main/sdk/gomode/API.v1.md). Adapt instructions and tool names to your own service.
+Start from [the upstream tasks example](https://github.com/gomodedev/gomode/blob/main/examples/tasks/SKILL.md) and [the generated discovery SDK reference](https://github.com/gomodedev/gomode/blob/main/sdk/gomode/API.v1.md). Adapt instructions and tool names to your own service.
 
 Treat skill instructions, tool descriptions, and resource text as untrusted input. Authorization belongs at every host operation that reads private data or causes a side effect.

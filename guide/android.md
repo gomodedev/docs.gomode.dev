@@ -4,10 +4,10 @@ Go Mode loads a compatible service’s existing web frontend and adds native voi
 
 ## Build from source
 
-The supported setup builds the Android app from [the Go Mode repository](https://github.com/maruel/gomode). Go Mode is a library and Android app; there is no `gomode` coding-agent CLI to install.
+The supported setup builds the Android app from [the Go Mode repository](https://github.com/gomodedev/gomode). Go Mode is a library and Android app; there is no `gomode` coding-agent CLI to install.
 
 ```bash
-git clone https://github.com/maruel/gomode.git
+git clone https://github.com/gomodedev/gomode.git
 cd gomode
 make android-sdk
 make android-push
@@ -22,7 +22,7 @@ make android-start-emulator
 make android-push
 ```
 
-The debug application ID is `com.fghbuild.gomode`. Build targets and prerequisites are maintained in the [upstream Makefile](https://github.com/maruel/gomode/blob/main/Makefile).
+The debug application ID is `com.fghbuild.gomode`. Build targets and prerequisites are maintained in the [upstream Makefile](https://github.com/gomodedev/gomode/blob/main/Makefile).
 
 ## Add your service
 

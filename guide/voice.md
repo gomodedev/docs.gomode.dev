@@ -9,7 +9,7 @@ Go Mode’s gateway connects clients to a voice backend through one service-neut
 | Embedded   | Voice runs with the host process                                  | Host session policy            |
 | Standalone | Voice needs a separate machine, scaling, or local model isolation | Short-lived host-issued tokens |
 
-Embedded hosts mount `voicegateway.NewEmbeddedHandler` and advertise the gateway URL in discovery. `voicegateway.ReadConfig` reads `voice-choices.toml` from the host’s configuration directory, with the same entries as the standalone gateway. The host embeds `voicegateway.WebRTCConfig` in its own TOML file for the UDP port and STUN servers. The [`Config` documentation](https://pkg.go.dev/github.com/maruel/gomode/voicegateway#Config) lists the startup calls. An external gateway runs `voice-gateway` and accepts only configured trusted issuers.
+Embedded hosts mount `voicegateway.NewEmbeddedHandler` and advertise the gateway URL in discovery. `voicegateway.ReadConfig` reads `voice-choices.toml` from the host’s configuration directory, with the same entries as the standalone gateway. The host embeds `voicegateway.WebRTCConfig` in its own TOML file for the UDP port and STUN servers. The [`Config` documentation](https://pkg.go.dev/github.com/gomodedev/gomode/voicegateway#Config) lists the startup calls. An external gateway runs `voice-gateway` and accepts only configured trusted issuers.
 
 ## Install the standalone gateway
 
@@ -18,14 +18,14 @@ The installers download the latest stable release for Linux, macOS, or Windows o
 Linux or macOS:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/maruel/gomode/main/contrib/install.sh -o /tmp/install-voice-gateway.sh
+curl -fsSL https://raw.githubusercontent.com/gomodedev/gomode/main/contrib/install.sh -o /tmp/install-voice-gateway.sh
 bash /tmp/install-voice-gateway.sh
 ```
 
 Windows PowerShell:
 
 ```powershell
-Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/maruel/gomode/main/contrib/install.ps1 -OutFile "$env:TEMP\install-voice-gateway.ps1"
+Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/gomodedev/gomode/main/contrib/install.ps1 -OutFile "$env:TEMP\install-voice-gateway.ps1"
 & "$env:TEMP\install-voice-gateway.ps1"
 ```
 
@@ -36,14 +36,14 @@ Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/maruel/gomo
 | Service          | systemd user `voice-gateway.service`         | launchd user `com.maruel.voice-gateway` | Scheduled task `GoModeVoiceGateway`   |
 | Logs             | `journalctl --user -u voice-gateway.service` | `~/Library/Logs/voice-gateway.log`      | `voice-gateway.log` beside executable |
 
-The configuration is `~/.config/voice-gateway/config.toml`, or under `XDG_CONFIG_HOME` when set. Start from [contrib/config.toml](https://github.com/maruel/gomode/blob/main/contrib/config.toml). Replace the example trusted issuer before accepting clients. The gateway restarts when `config.toml` or `voice-choices.toml` changes.
+The configuration is `~/.config/voice-gateway/config.toml`, or under `XDG_CONFIG_HOME` when set. Start from [contrib/config.toml](https://github.com/gomodedev/gomode/blob/main/contrib/config.toml). Replace the example trusted issuer before accepting clients. The gateway restarts when `config.toml` or `voice-choices.toml` changes.
 
 Released binaries check for a new stable release every day at 04:50 local time and restart after active sessions drain. Set `auto_update` to another cron schedule, or to an empty string to disable updates.
 
 To build from source instead:
 
 ```sh
-go install github.com/maruel/gomode/cmd/voice-gateway@latest
+go install github.com/gomodedev/gomode/cmd/voice-gateway@latest
 voice-gateway -config ~/.config/voice-gateway/config.toml
 ```
 
@@ -51,7 +51,7 @@ voice-gateway -config ~/.config/voice-gateway/config.toml
 
 One gateway URL offers several named choices. Clients list them, filter them by transport, and save the user’s selection. A choice is the only thing a client selects; it never names a provider.
 
-The release embeds [default choices](https://github.com/maruel/gomode/blob/main/voicegateway/voice-choices.toml) for Gemini, OpenAI, Anthropic, DeepSeek, OpenRouter, Mistral, Alibaba, and local models. To customize them, copy that file to `voice-choices.toml` beside `config.toml`. The copy replaces the defaults entirely and no longer follows later releases. Voice tables in `config.toml` stop startup.
+The release embeds [default choices](https://github.com/gomodedev/gomode/blob/main/voicegateway/voice-choices.toml) for Gemini, OpenAI, Anthropic, DeepSeek, OpenRouter, Mistral, Alibaba, and local models. To customize them, copy that file to `voice-choices.toml` beside `config.toml`. The copy replaces the defaults entirely and no longer follows later releases. Voice tables in `config.toml` stop startup.
 
 The file declares choices in three groups, offered in this order:
 
@@ -123,7 +123,7 @@ Synthesis uses a genai provider, such as Gemini TTS or llama.cpp, or `engine = "
 
 Every stage follows the session language: models that take a language receive it, and others ignore it. A model that declares its languages rejects another one at session setup; other recognizers reject it when the utterance starts. Each KittenTTS voice speaks one language, so a session in another language uses that language’s first voice.
 
-A fully local stack needs only stages without a provider API key. Managed engines download their release and models on first use; omit `remote` for a managed server, or set `remote` to the origin of a server you run. For single-model audio instead of separate stages, use an LFM3 `[[realtime]]` choice; `staged = true` adds a text step for thinking and tool calls before LFM3 speaks. The [default choices](https://github.com/maruel/gomode/blob/main/voicegateway/voice-choices.toml) hold complete examples.
+A fully local stack needs only stages without a provider API key. Managed engines download their release and models on first use; omit `remote` for a managed server, or set `remote` to the origin of a server you run. For single-model audio instead of separate stages, use an LFM3 `[[realtime]]` choice; `staged = true` adds a text step for thinking and tool calls before LFM3 speaks. The [default choices](https://github.com/gomodedev/gomode/blob/main/voicegateway/voice-choices.toml) hold complete examples.
 
 ## Audio and text modes
 
@@ -137,7 +137,7 @@ The gateway owns the common voice instructions: tone, quiet context updates, iso
 
 ## API credentials
 
-The gateway never reads credentials from its config file. Install the [credentials template](https://github.com/maruel/gomode/blob/main/contrib/voice-gateway.env.example) at the credentials file path, then uncomment the keys your choices need. Each provider reads genai’s environment variable, such as `GEMINI_API_KEY`, `OPENAI_API_KEY`, or `ANTHROPIC_API_KEY`. `LLAMA_API_KEY` and `OLLAMA_API_KEY` are optional; when set, the gateway sends them to llama.cpp or Ollama, and a managed llama.cpp server enforces `LLAMA_API_KEY`. An `openaicompatible` endpoint reads the variable named by its `api_key_name`.
+The gateway never reads credentials from its config file. Install the [credentials template](https://github.com/gomodedev/gomode/blob/main/contrib/voice-gateway.env.example) at the credentials file path, then uncomment the keys your choices need. Each provider reads genai’s environment variable, such as `GEMINI_API_KEY`, `OPENAI_API_KEY`, or `ANTHROPIC_API_KEY`. `LLAMA_API_KEY` and `OLLAMA_API_KEY` are optional; when set, the gateway sends them to llama.cpp or Ollama, and a managed llama.cpp server enforces `LLAMA_API_KEY`. An `openaicompatible` endpoint reads the variable named by its `api_key_name`.
 
 On Linux:
 
@@ -181,4 +181,4 @@ The `[server]` section controls exposure:
 
 Clients recover voice and service connections after a network change without starting a new conversation.
 
-Protocol details remain in [the generated v2 API reference](https://github.com/maruel/gomode/blob/main/sdk/voicegateway/API.v2.md) and [the gateway HTTP handlers](https://github.com/maruel/gomode/blob/main/voicegateway/http.go).
+Protocol details remain in [the generated v2 API reference](https://github.com/gomodedev/gomode/blob/main/sdk/voicegateway/API.v2.md) and [the gateway HTTP handlers](https://github.com/gomodedev/gomode/blob/main/voicegateway/http.go).

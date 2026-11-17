@@ -25,4 +25,4 @@ The Android app loads each service’s first advertised MCP tool group. Every sa
 
 ## License
 
-Go Mode, including its Go packages, browser package, generated SDKs, and Android app, is licensed under the [GNU Affero General Public License v3](https://github.com/maruel/gomode/blob/main/LICENSE). Review its terms before you embed Go Mode in your host. For a commercial license, contact [licensing@gomode.dev](mailto:licensing@gomode.dev).
+Go Mode, including its Go packages, browser package, generated SDKs, and Android app, is licensed under the [GNU Affero General Public License v3](https://github.com/gomodedev/gomode/blob/main/LICENSE). Review its terms before you embed Go Mode in your host. For a commercial license, contact [licensing@gomode.dev](mailto:licensing@gomode.dev).

@@ -7,7 +7,7 @@ A Go Mode host serves a web frontend and a public discovery manifest. It owns au
 Add the Go module:
 
 ```bash
-go get github.com/maruel/gomode
+go get github.com/gomodedev/gomode
 ```
 
 Mount the handler on your existing HTTP server:
@@ -29,7 +29,7 @@ if err != nil {
 mux.Handle("GET /.well-known/gomode.json", handler)
 ```
 
-Import `github.com/maruel/gomode` and `net/http` in your server. This minimal manifest permits discovery; it advertises no tools or voice gateway. `toolGroups` must be a JSON array, including when empty.
+Import `github.com/gomodedev/gomode` and `net/http` in your server. This minimal manifest permits discovery; it advertises no tools or voice gateway. `toolGroups` must be a JSON array, including when empty.
 
 The discovery handler validates the settings once, serves precomputed JSON, and supports ETag revalidation. Keep the route public: it describes compatibility, not a user’s private data.
 
@@ -68,7 +68,7 @@ The choices come from `GET /api/voicegateway/v2/voice/choices` on the gateway. M
 
 ## Publish resource updates
 
-Implement `mcp.SubscriptionRegistry` to signal resource changes. For released Streamable HTTP clients, create one `mcp.NewSessionStore` for the server lifetime and set it on `mcp.Handler.Sessions`. Its owner function returns a stable key for the authenticated principal, never a credential. Authenticate every request; a session ID grants nothing. Updates are invalidations: clients read the resource again. The [`mcp` package documentation](https://pkg.go.dev/github.com/maruel/gomode/mcp) covers the session lifecycle.
+Implement `mcp.SubscriptionRegistry` to signal resource changes. For released Streamable HTTP clients, create one `mcp.NewSessionStore` for the server lifetime and set it on `mcp.Handler.Sessions`. Its owner function returns a stable key for the authenticated principal, never a credential. Authenticate every request; a session ID grants nothing. Updates are invalidations: clients read the resource again. The [`mcp` package documentation](https://pkg.go.dev/github.com/gomodedev/gomode/mcp) covers the session lifecycle.
 
 ## Alerts
 
@@ -78,4 +78,4 @@ Expose `gomode://notifications` as an authoritative snapshot of the alerts that 
 
 The Android shell loads your frontend in a WebView. Product routes stay in your application. Native voice and notification controls complement the hosted UI; use [browser integration](./sdk) to avoid showing duplicate browser controls inside the shell.
 
-A real adapter example is [caic’s server](https://github.com/caic-xyz/caic/tree/main/backend/internal/server). The [Go package documentation](https://pkg.go.dev/github.com/maruel/gomode) holds the reusable contracts.
+A real adapter example is [caic’s server](https://github.com/caic-xyz/caic/tree/main/backend/internal/server). The [Go package documentation](https://pkg.go.dev/github.com/gomodedev/gomode) holds the reusable contracts.

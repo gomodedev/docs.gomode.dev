@@ -9,7 +9,7 @@ The shell exposes `window.gomodeAuth.postMessage(...)` only to the saved service
 Capture the preparation client when the frontend mounts, before asynchronous authentication. A cookie-backed host reports the result after checking the identity:
 
 ```ts
-import { createFrontendPreparationClient } from "@maruel/gomode/web/FrontendVoiceTools";
+import { createFrontendPreparationClient } from "@gomodedev/gomode/web/FrontendVoiceTools";
 
 const client = createFrontendPreparationClient();
 
@@ -50,7 +50,7 @@ The shell keeps the bearer in memory, not on disk. Do not put tokens in URLs or 
 
 ## Hosts without the browser package
 
-Follow the bridge 3 contract in [FrontendVoiceTools.ts](https://github.com/maruel/gomode/blob/main/web/src/FrontendVoiceTools.ts). Each `gomodeAuth` message also carries `frontendDocument` and a fresh `frontendRequest`, both nonblank strings of at most 128 characters. Access-granting messages receive a token, and readiness goes to `window.gomodeFrontendReadiness`. A manifest that advertises another bridge version is incompatible.
+Follow the bridge 3 contract in [FrontendVoiceTools.ts](https://github.com/gomodedev/gomode/blob/main/web/src/FrontendVoiceTools.ts). Each `gomodeAuth` message also carries `frontendDocument` and a fresh `frontendRequest`, both nonblank strings of at most 128 characters. Access-granting messages receive a token, and readiness goes to `window.gomodeFrontendReadiness`. A manifest that advertises another bridge version is incompatible.
 
 ## Authorize at the host
 
@@ -60,7 +60,7 @@ Discovery stays public. MCP tools, resources, and embedded voice routes enforce 
 
 The `devicelogin` Go package pairs a browser that is not signed in with an account that is. The new browser shows a code. A signed-in user reviews the code and the requesting browser’s details, then approves or denies it. On approval the host issues its normal session, with the same permissions and lifetime as an ordinary login.
 
-The host supplies approver identity, login eligibility, audit persistence, and session creation through `devicelogin.Host`. Mount the handlers behind the host’s normal network and origin protections. Pending requests live in memory, so a restart cancels them. The browser side is `@maruel/gomode/web/DeviceLogin`: `DeviceLoginDisplay` shows the code and `DeviceLoginApproval` asks the approver. See [the package contract](https://pkg.go.dev/github.com/maruel/gomode/devicelogin).
+The host supplies approver identity, login eligibility, audit persistence, and session creation through `devicelogin.Host`. Mount the handlers behind the host’s normal network and origin protections. Pending requests live in memory, so a restart cancels them. The browser side is `@gomodedev/gomode/web/DeviceLogin`: `DeviceLoginDisplay` shows the code and `DeviceLoginApproval` asks the approver. See [the package contract](https://pkg.go.dev/github.com/gomodedev/gomode/devicelogin).
 
 ## Provider login limitations
 
@@ -70,4 +70,4 @@ Some identity providers reject embedded WebView login or require browser-only ca
 
 Saved services share Android WebView cookies, so services on one origin share a cookie identity. An `authChanging` or logout from one page pauses its same-origin peers at once, while a new sign-in grants access only to the page that reported it. Each page reports its own settled identity.
 
-The authoritative bridge behavior is in [ServiceBearerStore.kt](https://github.com/maruel/gomode/blob/main/android/gomode/src/main/java/com/fghbuild/gomode/ui/web/ServiceBearerStore.kt) and [ServiceShellSession.kt](https://github.com/maruel/gomode/blob/main/android/gomode/src/main/java/com/fghbuild/gomode/ui/web/ServiceShellSession.kt).
+The authoritative bridge behavior is in [ServiceBearerStore.kt](https://github.com/gomodedev/gomode/blob/main/android/gomode/src/main/java/com/fghbuild/gomode/ui/web/ServiceBearerStore.kt) and [ServiceShellSession.kt](https://github.com/gomodedev/gomode/blob/main/android/gomode/src/main/java/com/fghbuild/gomode/ui/web/ServiceShellSession.kt).

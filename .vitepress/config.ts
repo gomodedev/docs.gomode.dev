@@ -61,7 +61,7 @@ export default defineConfig({
       },
     ],
     search: { provider: "local" },
-    socialLinks: [{ icon: "github", link: "https://github.com/maruel/gomode" }],
+    socialLinks: [{ icon: "github", link: "https://github.com/gomodedev/gomode" }],
     editLink: {
       pattern: "https://github.com/gomodedev/docs.gomode.dev/edit/main/:path",
       text: "Edit this page on GitHub",
