@@ -102,7 +102,7 @@ Every entry needs an `id`: 1 to 64 lowercase letters, digits, `-`, or `_`, start
 
 At startup, the standalone gateway hides choices whose provider is unavailable and logs a warning. An empty catalog stops startup.
 
-Local models load on first use, and voice progress names the current startup step, such as a model download. `[local_stack_runtime]` sets how long an idle choice stays loaded and how many choices run at once. Active sessions keep their choice loaded; another choice waits when every slot is busy.
+Local models load on first use, and voice progress names the current startup step, such as a model download. `[local_stack_runtime]` sets how long an idle choice stays loaded and how many choices run at once. Active sessions keep their choice loaded; another choice waits when every slot is busy. A choice keeps loading after the session that started it ends, so a reconnecting client does not restart the load; with no session left, it counts as idle once loaded.
 
 ### Discovery
 
