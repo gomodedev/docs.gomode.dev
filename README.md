@@ -23,6 +23,8 @@ The pinned VitePress patch preserves the search opener before autofocus, so Esca
 
 ## This site imports screenshots; Go Mode publishes the favicon
 
+Screenshots follow the documentation appearance setting. The owning capture pipeline produces both WebP variants together.
+
 Native Android captures come from Go Mode; real host frontend captures come from caic and mddb. Refresh captures in their owning repository with `make screenshots-update`, then publish the captures the pages reference and the favicon:
 
 ```bash

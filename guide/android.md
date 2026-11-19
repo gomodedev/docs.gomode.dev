@@ -2,6 +2,8 @@
 
 Go Mode loads a compatible service’s existing web frontend and adds native voice, notifications, settings, and optional Halo glasses integration.
 
+Go Mode follows your Android light or dark theme. Hosted apps that support the system appearance follow it as well.
+
 ## Build from source
 
 The supported setup builds the Android app from [the Go Mode repository](https://github.com/gomodedev/gomode). Go Mode is a library and Android app; there is no `gomode` coding-agent CLI to install.
@@ -39,8 +41,8 @@ The edit action turns the card into its editor. Go Mode saves changes automatica
 The service URL must be reachable from the phone. A phone’s `localhost` means the phone, not your development machine. Use a reachable address or a private network such as Tailscale. Android emulator access to a host machine commonly uses `10.0.2.2`; for local instrumented tests, the project runner configures `adb reverse`.
 
 <div class="native-gallery">
-<figure><a class="docs-screenshot-link" href="/screenshots/connections.webp" target="_blank" rel="noopener"><img src="/screenshots/connections.webp" width="720" height="1600" alt="Native service connections screen" loading="lazy"></a><figcaption>Saved service connections</figcaption></figure>
-<figure><a class="docs-screenshot-link" href="/screenshots/service-editor.webp" target="_blank" rel="noopener"><img src="/screenshots/service-editor.webp" width="720" height="1600" alt="Native Go Mode connection editor" loading="lazy"></a><figcaption>Add or edit a saved service</figcaption></figure>
+<figure><ThemedScreenshot light="/screenshots/connections-light.webp" dark="/screenshots/connections-dark.webp" alt="Native service connections screen" :width="720" :height="1600" /><figcaption>Saved service connections</figcaption></figure>
+<figure><ThemedScreenshot light="/screenshots/service-editor-light.webp" dark="/screenshots/service-editor-dark.webp" alt="Native Go Mode connection editor" :width="720" :height="1600" /><figcaption>Add or edit a saved service</figcaption></figure>
 </div>
 
 ## Choose how you speak
@@ -66,8 +68,8 @@ Until you pick, Go Mode follows the gateway’s default setup. When the gateway 
 Under **Display**, **Show assistant reasoning** and **Show usage stats** add the model’s reasoning and token counts to the transcript. **Thinking music** plays while the assistant works; its control previews it.
 
 <div class="native-gallery">
-<figure><a class="docs-screenshot-link" href="/screenshots/voice-settings-all-in-one.webp" target="_blank" rel="noopener"><img src="/screenshots/voice-settings-all-in-one.webp" width="720" height="1600" alt="Native all-in-one voice setup with a realtime model" loading="lazy"></a><figcaption>All-in-one</figcaption></figure>
-<figure><a class="docs-screenshot-link" href="/screenshots/voice-settings.webp" target="_blank" rel="noopener"><img src="/screenshots/voice-settings.webp" width="720" height="1600" alt="Native separate-stages voice setup with recognition, language model, and speech chips" loading="lazy"></a><figcaption>Separate stages</figcaption></figure>
+<figure><ThemedScreenshot light="/screenshots/voice-settings-all-in-one-light.webp" dark="/screenshots/voice-settings-all-in-one-dark.webp" alt="Native all-in-one voice setup with a realtime model" :width="720" :height="1600" /><figcaption>All-in-one</figcaption></figure>
+<figure><ThemedScreenshot light="/screenshots/voice-settings-light.webp" dark="/screenshots/voice-settings-dark.webp" alt="Native separate-stages voice setup with recognition, language model, and speech chips" :width="720" :height="1600" /><figcaption>Separate stages</figcaption></figure>
 </div>
 
 ### Download a local model
@@ -134,6 +136,6 @@ Hosted file inputs open the Android system document picker, which lists Screensh
 
 Halo settings connect optional Brilliant Labs Halo glasses. The emulator capture shows configuration, not a verified physical-device connection.
 
-<a class="docs-screenshot-link docs-screenshot-link--capture" href="/screenshots/halo.webp" target="_blank" rel="noopener"><img class="native-capture" src="/screenshots/halo.webp" width="720" height="1600" alt="Native Halo glasses configuration" loading="lazy"></a>
+<ThemedScreenshot light="/screenshots/halo-light.webp" dark="/screenshots/halo-dark.webp" alt="Native Halo glasses configuration" :width="720" :height="1600" image-class="native-capture" link-class="docs-screenshot-link--capture" />
 
 See [Troubleshooting](./troubleshooting) when the hosted page loads but native features remain unavailable.

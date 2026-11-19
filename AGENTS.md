@@ -10,7 +10,7 @@ Read current [Cloudflare documentation](https://developers.cloudflare.com/worker
 
 ## Last synced
 
-The guides and screenshots were last reconciled against gomode commit `9a6a5e791ac313c64abb2f0c88bcc7bd9f4b37fe` on 2026-11-18. When you update that commit, refresh the screenshots and import them before committing. Review `git log <hash>..HEAD` when updating.
+The guides and screenshots were last reconciled against gomode commit `2420ee3432f129b47b9b73c5b7407cbcf450e054` on 2026-11-19. When you update that commit, refresh the screenshots and import them before committing. Review `git log <hash>..HEAD` when updating.
 
 ## Authoring and validation
 

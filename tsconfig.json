@@ -8,5 +8,5 @@
     "types": ["node", "vitepress/client"],
     "skipLibCheck": true
   },
-  "include": ["playwright.config.ts", "tests/**/*.ts", ".vitepress/config.ts", ".vitepress/theme/index.ts"]
+  "include": ["playwright.config.ts", "tests/**/*.ts", ".vitepress/**/*.ts"]
 }

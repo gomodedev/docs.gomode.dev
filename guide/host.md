@@ -78,4 +78,6 @@ Expose `gomode://notifications` as an authoritative snapshot of the alerts that 
 
 The Android shell loads your frontend in a WebView. Product routes stay in your application. Native voice and notification controls complement the hosted UI; use [browser integration](./sdk) to avoid showing duplicate browser controls inside the shell.
 
+Use the CSS media query `prefers-color-scheme` to follow the user’s browser appearance. Go Mode’s WebView reports the Android appearance through the same query. Set the CSS `color-scheme` property to match your rendered theme so form controls and scrollbars match it.
+
 A real adapter example is [caic’s server](https://github.com/caic-xyz/caic/tree/main/backend/internal/server). The [Go package documentation](https://pkg.go.dev/github.com/gomodedev/gomode) holds the reusable contracts.

@@ -37,15 +37,15 @@ features:
 Go Mode connects web and Android clients to a voice gateway on Windows, macOS, or Linux. Hosts keep their own interfaces, accounts, and tools: [caic](https://caic.xyz) manages coding agents, and [mddb](https://mddb.app) manages documents and databases.
 
 <div class="host-gallery">
-<figure><a class="docs-screenshot-link" href="/screenshots/caic-tasks.webp" target="_blank" rel="noopener"><img src="/screenshots/caic-tasks.webp" width="1280" height="800" alt="caic's coding-agent task dashboard" loading="lazy"></a><figcaption>caic · Coding agents in parallel</figcaption></figure>
-<figure><a class="docs-screenshot-link" href="/screenshots/mddb-editor.webp" target="_blank" rel="noopener"><img src="/screenshots/mddb-editor.webp" width="1280" height="800" alt="mddb's document editor and workspace navigation" loading="lazy"></a><figcaption>mddb · Documents and databases</figcaption></figure>
+<figure><ThemedScreenshot light="/screenshots/caic-tasks-light.webp" dark="/screenshots/caic-tasks-dark.webp" alt="caic's coding-agent task dashboard" :width="1280" :height="800" /><figcaption>caic · Coding agents in parallel</figcaption></figure>
+<figure><ThemedScreenshot light="/screenshots/mddb-editor-light.webp" dark="/screenshots/mddb-editor-dark.webp" alt="mddb's document editor and workspace navigation" :width="1280" :height="800" /><figcaption>mddb · Documents and databases</figcaption></figure>
 </div>
 
 These captures render the real caic and mddb frontends with sample data from their screenshot suites.
 
 <div class="native-gallery">
-<figure><a class="docs-screenshot-link" href="/screenshots/connections.webp" target="_blank" rel="noopener"><img src="/screenshots/connections.webp" width="720" height="1600" alt="Native Go Mode service connections screen" loading="lazy"></a><figcaption>Connect your own services</figcaption></figure>
-<figure><a class="docs-screenshot-link" href="/screenshots/voice-settings.webp" target="_blank" rel="noopener"><img src="/screenshots/voice-settings.webp" width="720" height="1600" alt="Native Go Mode voice settings" loading="lazy"></a><figcaption>Choose each voice stage and language</figcaption></figure>
+<figure><ThemedScreenshot light="/screenshots/connections-light.webp" dark="/screenshots/connections-dark.webp" alt="Native Go Mode service connections screen" :width="720" :height="1600" /><figcaption>Connect your own services</figcaption></figure>
+<figure><ThemedScreenshot light="/screenshots/voice-settings-light.webp" dark="/screenshots/voice-settings-dark.webp" alt="Native Go Mode voice settings" :width="720" :height="1600" /><figcaption>Choose each voice stage and language</figcaption></figure>
 </div>
 
 The native connections and voice settings captures come from the running Android emulator.

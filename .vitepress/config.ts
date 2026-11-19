@@ -10,7 +10,6 @@ export default defineConfig({
   sitemap: { hostname: "https://docs.gomode.dev" },
   head: [
     ["link", { rel: "icon", href: "/favicon.svg" }],
-    ["meta", { name: "theme-color", content: "#1d6a96" }],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:site_name", content: "Go Mode documentation" }],
   ],
