@@ -72,9 +72,13 @@ Voice reaches only the service on screen. Switch to it with **Next server** or a
 
 ## A service or voice drops after a network change
 
-A cold start or a Wi-Fi to cellular handover can interrupt discovery. On network failures and HTTP 408, 429, and 5xx answers, Android retries the manifest fetch with backoff of up to 30 seconds, and the service card shows **Reconnecting**. Authentication, parse, and compatibility failures do not retry; reload the page or use the retry action.
+A cold start or a Wi-Fi to cellular handover can interrupt discovery. On network failures and HTTP 408, 429, and 5xx answers, Android retries the manifest fetch with backoff of up to 30 seconds, and the service card shows **Reconnecting**. While Android blocks the app’s network access, the card shows **Waiting for network**; when access returns, the fetch restarts at once. A hosted page that failed to load retries once after the service becomes reachable. Authentication, parse, and compatibility failures do not retry; reload the page or use the retry action.
 
 Android voice keeps the conversation while it reconnects for up to two minutes after the first loss. Gateway 401, 403, and 404 answers end the call. Check the gateway’s authorization and route when a call ends instead of recovering.
+
+## Voice ends without a hang-up
+
+When Go Mode ends voice on its own, the voice panel shows why: another call started, the service sign-in changed, another app took over the audio, or the Bluetooth device disconnected. Hang-ups from the overlay, the notification, a headset, or a car end voice without an error. The gateway logs “client closed the WebRTC connection” when the app closes the session, and keeps separate causes for ICE failures.
 
 ## Notifications do not arrive
 

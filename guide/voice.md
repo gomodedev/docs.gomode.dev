@@ -49,6 +49,15 @@ go install github.com/gomodedev/gomode/cmd/voice-gateway@latest
 voice-gateway -config ~/.config/voice-gateway/config.toml
 ```
 
+### Upgrade from v0.3.0 or earlier
+
+Go Mode moved from `maruel/gomode` to `gomodedev/gomode`. Gateways from v0.3.0 and earlier do not accept release assets from the new repository, so automatic updates stop. Run the installer once to update. On macOS, the service label changed from `com.maruel.voice-gateway` to `com.fghbuild.voice-gateway`, and the installer leaves the old agent in place. Remove it:
+
+```sh
+launchctl bootout "gui/$(id -u)/com.maruel.voice-gateway"
+rm ~/Library/LaunchAgents/com.maruel.voice-gateway.plist
+```
+
 ## Voice choices
 
 One gateway URL offers several named choices. Clients list them, filter them by transport, and save the user’s selection. A choice is the only thing a client selects; it never names a provider.
@@ -102,7 +111,7 @@ Every entry needs an `id`: 1 to 64 lowercase letters, digits, `-`, or `_`, start
 
 At startup, the standalone gateway hides choices whose provider is unavailable and logs a warning. An empty catalog stops startup.
 
-Local models load on first use, and voice progress names the current startup step, such as a model download. `[local_stack_runtime]` sets how long an idle choice stays loaded and how many choices run at once. Active sessions keep their choice loaded; another choice waits when every slot is busy. A choice keeps loading after the session that started it ends, so a reconnecting client does not restart the load; with no session left, it counts as idle once loaded, and another choice that needs its slot cancels the load.
+Local models load on first use, and voice progress names the current startup step, such as a model download. `[local_stack_runtime]` sets how long an idle choice stays loaded and how many choices run at once. Active sessions keep their choice loaded; another choice waits when every slot is busy. A choice keeps loading after the session that started it ends, so a reconnecting client does not restart the load; with no session left, it counts as idle once loaded, and another choice that needs its slot cancels the load. Choices that run the same model with the same engine and context size share its server: switching between them, such as from a gateway voice to client speech with the same recognition model, keeps that model loaded.
 
 ### Discovery
 
