@@ -34,11 +34,10 @@ Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/gomodedev/g
 | Setting          | Linux                                        | macOS                                     | Windows                               |
 | ---------------- | -------------------------------------------- | ----------------------------------------- | ------------------------------------- |
 | Binary directory | `~/.local/bin`                               | `~/.local/bin`                            | `%LOCALAPPDATA%\voice-gateway`        |
-| Credentials file | `~/.config/systemd/user/voice-gateway.env`   | Beside the configuration                  | Beside the executable                 |
 | Service          | systemd user `voice-gateway.service`         | launchd user `com.fghbuild.voice-gateway` | Scheduled task `GoModeVoiceGateway`   |
 | Logs             | `journalctl --user -u voice-gateway.service` | `~/Library/Logs/voice-gateway.log`        | `voice-gateway.log` beside executable |
 
-The configuration is `~/.config/voice-gateway/config.toml`, or under `XDG_CONFIG_HOME` when set. Start from [contrib/config.toml](https://github.com/gomodedev/gomode/blob/main/contrib/config.toml). Replace the example trusted issuer before accepting clients. The gateway restarts when `config.toml` or `voice-choices.toml` changes.
+The configuration is `~/.config/voice-gateway/config.toml`, or under `XDG_CONFIG_HOME` when set; on Windows, `~` is `%USERPROFILE%`. API credentials are in `voice-gateway.env` in the same directory. Start from [contrib/config.toml](https://github.com/gomodedev/gomode/blob/main/contrib/config.toml). Replace the example trusted issuer before accepting clients. The gateway restarts when `config.toml`, `voice-choices.toml`, or `voice-gateway.env` changes.
 
 Released binaries check for a new stable release every day at 04:50 local time and restart after active sessions drain. Set `auto_update` to another cron schedule, or to an empty string to disable updates.
 
@@ -148,17 +147,16 @@ The gateway owns the common voice instructions: tone, quiet context updates, iso
 
 ## API credentials
 
-The gateway never reads credentials from its config file. Install the [credentials template](https://github.com/gomodedev/gomode/blob/main/contrib/voice-gateway.env.example) at the credentials file path, then uncomment the keys your choices need. Each provider reads genai’s environment variable, such as `GEMINI_API_KEY`, `OPENAI_API_KEY`, or `ANTHROPIC_API_KEY`. `LLAMA_API_KEY` and `OLLAMA_API_KEY` are optional; when set, the gateway sends them to llama.cpp or Ollama, and a managed llama.cpp server enforces `LLAMA_API_KEY`. An `openaicompatible` endpoint reads the variable named by its `api_key_name`.
+The gateway never reads credentials from its config file. It reads `voice-gateway.env` beside `config.toml`. The installers create it from the [credentials template](https://github.com/gomodedev/gomode/blob/main/contrib/voice-gateway.env). Uncomment the keys your choices need. Each provider reads genai’s environment variable, such as `GEMINI_API_KEY`, `OPENAI_API_KEY`, or `ANTHROPIC_API_KEY`. `LLAMA_API_KEY` and `OLLAMA_API_KEY` are optional; when set, the gateway sends them to llama.cpp or Ollama, and a managed llama.cpp server enforces `LLAMA_API_KEY`. An `openaicompatible` endpoint reads the variable named by its `api_key_name`.
 
-On Linux:
+For a source build on Linux or macOS:
 
 ```sh
-install -d -m 700 ~/.config/systemd/user
-install -m 600 contrib/voice-gateway.env.example ~/.config/systemd/user/voice-gateway.env
-systemctl --user restart voice-gateway.service
+install -d -m 700 ~/.config/voice-gateway
+install -m 600 contrib/voice-gateway.env ~/.config/voice-gateway/voice-gateway.env
 ```
 
-Use `NAME=value` assignments without `export` or shell substitutions. A user service does not inherit exports from your interactive shell. Restart the service after editing the file. macOS and Windows services pass the file with `-env-file`; its values override inherited variables.
+Use `NAME=value` assignments without `export` or shell substitutions. A user service does not inherit exports from your interactive shell. File values override inherited variables. `-env-file` selects another file.
 
 ## External gateway authentication
 
