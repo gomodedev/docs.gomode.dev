@@ -170,7 +170,7 @@ Browsers redeem single-use text-session tickets through `POST /api/voicegateway/
 
 ## Network requirements
 
-Put HTTPS in front of signaling, and make the gateway’s WebRTC UDP port reachable; the example uses UDP 3480. The standalone gateway can request a UPnP mapping, but that does not solve blocked UDP or every NAT topology. A successful HTTP request does not prove the audio path can connect.
+Put HTTPS in front of signaling, and make the gateway’s WebRTC UDP port reachable; the example uses UDP 3480. The gateway requests a UPnP mapping from the router at startup, but that does not solve blocked UDP or every NAT topology. Set `disable_upnp = true` in `[server]` when clients reach the UDP port without it, or when the router must not open ports for the gateway. A successful HTTP request does not prove the audio path can connect.
 
 `stun_servers` lists the STUN servers clients use to learn their public address, Google’s public server by default. Set it to `[]` when clients reach the UDP port directly or through UPnP; clients then contact no STUN server.
 
