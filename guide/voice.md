@@ -139,7 +139,7 @@ A fully local stack needs only stages without a provider API key. Managed engine
 
 Android and the browser integration share one voice setup. **All-in-one** selects a realtime choice. **Separate stages** selects recognition, a language model, and speech; each speech stage runs on the gateway or on the client. Client speech is Android recognition and text to speech, or the browser’s speech APIs, whose recognition may use the browser vendor’s service.
 
-A session uses WebRTC with Opus audio and the `voice-gateway` data channel. When the client owns both recognition and speech, it connects to the gateway’s text WebSocket instead. Discovery marks the matching choices with the `webrtc` and `text` transports. [Android setup](./android) covers the settings.
+A session uses WebRTC with Opus audio and the `voice-gateway` data channel. When the gateway’s recognizer takes audio below 48 kHz, the gateway lowers the client’s Opus encoder to that rate once the session is ready, which cuts microphone upload by about 40%. When the client owns both recognition and speech, it connects to the gateway’s text WebSocket instead. Discovery marks the matching choices with the `webrtc` and `text` transports. [Android setup](./android) covers the settings.
 
 Client speech with a gateway language model is not an offline guarantee.
 
