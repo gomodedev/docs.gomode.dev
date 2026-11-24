@@ -50,6 +50,17 @@ Native voice prefers a Bluetooth device when Voice connects, if one is already a
 
 A gateway’s local stack downloads its models on first use; the voice progress names the current step. For a model on the phone, check in Settings that the selected model is downloaded; a missing model shows **Not downloaded**. Expand **Model load diagnostics** to see which load stage failed and how much memory it used. A load that ended the app shows Android’s exit reason, such as **Low memory**. End the voice session before changing the model.
 
+## Gateway recognition asks you to repeat
+
+Gateway recognition ends an utterance after 200 ms of quiet, so pauses inside a sentence open more recognition sessions. The voice error names the cause:
+
+- **speech recognition is busy with earlier utterances:** four utterances of the session are still connecting, receiving audio, or waiting for their final transcript.
+- **no speech recognizer became available:** the recognizer did not accept the utterance before about 10 seconds of audio queued. A managed llama.cpp recognizer with every slot in use does this; increase its `slots`.
+- **speech recognition fell behind:** the recognizer takes audio more slowly than the microphone sends it.
+- **speech recognition timed out:** the final transcript did not arrive within one minute.
+
+The gateway logs a `voicertc: live ASR` warning with the details of each of the first three causes.
+
 ## Gateway voice choices do not appear
 
 Check the discovery manifest’s gateway URL, then read the choices endpoint directly:

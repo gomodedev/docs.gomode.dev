@@ -60,7 +60,7 @@ Discovery stays public. MCP tools, resources, and embedded voice routes enforce 
 
 The `devicelogin` Go package pairs a browser that is not signed in with an account that is. The new browser shows a code. A signed-in user reviews the code and the requesting browser’s details, then approves or denies it. On approval the host issues its normal session, with the same permissions and lifetime as an ordinary login.
 
-The host supplies approver identity, login eligibility, audit persistence, and session creation through `devicelogin.Host`. Mount the handlers behind the host’s normal network and origin protections. Pending requests live in memory, so a restart cancels them. The browser side is `@gomodedev/gomode/web/DeviceLogin`: `DeviceLoginDisplay` shows the code and `DeviceLoginApproval` asks the approver. See [the package contract](https://pkg.go.dev/github.com/gomodedev/gomode/devicelogin).
+The host supplies approver identity, login eligibility, audit persistence, and session creation through `devicelogin.Host`, and creates the server with `devicelogin.New(log, host)`. Mount the handlers behind the host’s normal network and origin protections. Pending requests live in memory, so a restart cancels them. The browser side is `@gomodedev/gomode/web/DeviceLogin`: `DeviceLoginDisplay` shows the code and `DeviceLoginApproval` asks the approver. See [the package contract](https://pkg.go.dev/github.com/gomodedev/gomode/devicelogin).
 
 ## Provider login limitations
 

@@ -11,7 +11,7 @@ The voice gateway supports Windows, macOS, and Linux. Clients connect from the w
 | Embedded   | Voice runs with the host process                                  | Host session policy            |
 | Standalone | Voice needs a separate machine, scaling, or local model isolation | Short-lived host-issued tokens |
 
-Embedded hosts mount `voicegateway.NewEmbeddedHandler` and advertise the gateway URL in discovery. `voicegateway.ReadConfig` reads `voice-choices.toml` from the host’s configuration directory, with the same entries as the standalone gateway. The host embeds `voicegateway.WebRTCConfig` in its own TOML file for the UDP port and STUN servers. The [`Config` documentation](https://pkg.go.dev/github.com/gomodedev/gomode/voicegateway#Config) lists the startup calls. An external gateway runs `voice-gateway` and accepts only configured trusted issuers.
+Embedded hosts mount `voicegateway.NewEmbeddedHandler`, which takes the host’s logger, and advertise the gateway URL in discovery. `voicegateway.ReadConfig` reads `voice-choices.toml` from the host’s configuration directory, with the same entries as the standalone gateway. The host embeds `WebRTC` from [`voicegateway/data/v1`](https://pkg.go.dev/github.com/gomodedev/gomode/voicegateway/data/v1) in its own TOML file for the UDP port, STUN servers, and UPnP, and starts from `voicegateway.NewWebRTCConfig` so omitted keys keep their defaults. The [`Config` documentation](https://pkg.go.dev/github.com/gomodedev/gomode/voicegateway#Config) lists the startup calls. An external gateway runs `voice-gateway` and accepts only configured trusted issuers.
 
 ## Install the standalone gateway
 
@@ -37,7 +37,7 @@ Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/gomodedev/g
 | Service          | systemd user `voice-gateway.service`         | launchd user `com.fghbuild.voice-gateway` | Scheduled task `GoModeVoiceGateway`   |
 | Logs             | `journalctl --user -u voice-gateway.service` | `~/Library/Logs/voice-gateway.log`        | `voice-gateway.log` beside executable |
 
-The configuration is `~/.config/voice-gateway/config.toml`, or under `XDG_CONFIG_HOME` when set; on Windows, `~` is `%USERPROFILE%`. API credentials are in `voice-gateway.env` in the same directory. Start from [contrib/config.toml](https://github.com/gomodedev/gomode/blob/main/contrib/config.toml). Replace the example trusted issuer before accepting clients. The gateway restarts when `config.toml`, `voice-choices.toml`, or `voice-gateway.env` changes.
+The configuration is `~/.config/voice-gateway/config.toml`, or under `XDG_CONFIG_HOME` when set; on Windows, `~` is `%USERPROFILE%`. API credentials are in `voice-gateway.env` in the same directory. Start from [contrib/config.toml](https://github.com/gomodedev/gomode/blob/main/contrib/config.toml). Uncomment its `[[trusted_issuers]]` example and set your host’s service and issuer before accepting clients. The gateway restarts when `config.toml`, `voice-choices.toml`, or `voice-gateway.env` changes.
 
 Released binaries check for a new stable release every day at 04:50 local time and restart after active sessions drain. Set `auto_update` to another cron schedule, or to an empty string to disable updates.
 
@@ -128,6 +128,9 @@ Each recognition stage opens a live transcription session per utterance; models 
 | ------------ | -------------------------------------------------------------------------------------------- |
 | `nemospeech` | NVIDIA `parakeet-tdt`, `nemotron-3.5`, and the English-only `nemotron-en` and `parakeet-ctc` |
 | `whistle`    | Cactus Whistle                                                                               |
+| `vosk`       | Vosk US English `vosk-model-en-us-0.22`                                                      |
+
+A managed Vosk stage downloads the 1.8 GB model and starts a worker that uses about 7 GB of memory; `remote` selects a `vosk-server` that loaded the model.
 
 Synthesis uses a genai provider, such as Gemini TTS or llama.cpp, or `engine = "kittentts"` with Kitten TTS 2 1.7B or its 82M mini model.
 
@@ -139,7 +142,7 @@ A fully local stack needs only stages without a provider API key. Managed engine
 
 Android and the browser integration share one voice setup. **All-in-one** selects a realtime choice. **Separate stages** selects recognition, a language model, and speech; each speech stage runs on the gateway or on the client. Client speech is Android recognition and text to speech, or the browser’s speech APIs, whose recognition may use the browser vendor’s service.
 
-A session uses WebRTC with Opus audio and the `voice-gateway` data channel. When the gateway’s recognizer takes audio below 48 kHz, the gateway lowers the client’s Opus encoder to that rate once the session is ready, which cuts microphone upload by about 40%. When the client owns both recognition and speech, it connects to the gateway’s text WebSocket instead. Discovery marks the matching choices with the `webrtc` and `text` transports. [Android setup](./android) covers the settings.
+A session uses WebRTC with Opus audio and the `voice-gateway` data channel. When the session’s model takes microphone audio below 48 kHz, such as a 16 kHz recognizer, the gateway lowers the client’s Opus encoder to that rate once the session is ready. At 16 kHz, this cuts microphone upload by about 40%. Clients that do not request this renegotiation keep 48 kHz. With client recognition and gateway speech, the client sends no microphone audio. When the client owns both recognition and speech, it connects to the gateway’s text WebSocket instead. Discovery marks the matching choices with the `webrtc` and `text` transports. [Android setup](./android) covers the settings.
 
 Client speech with a gateway language model is not an offline guarantee.
 

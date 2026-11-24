@@ -68,7 +68,7 @@ The choices come from `GET /api/voicegateway/v2/voice/choices` on the gateway. M
 
 ## Publish resource updates
 
-Implement `mcp.SubscriptionRegistry` to signal resource changes. For released Streamable HTTP clients, create one `mcp.NewSessionStore` for the server lifetime and set it on `mcp.Handler.Sessions`. Its owner function returns a stable key for the authenticated principal, never a credential. Authenticate every request; a session ID grants nothing. Updates are invalidations: clients read the resource again. The [`mcp` package documentation](https://pkg.go.dev/github.com/gomodedev/gomode/mcp) covers the session lifecycle.
+Implement `mcp.SubscriptionRegistry` to signal resource changes. Set the required `mcp.Handler.Log`; it receives request failures and stream diagnostics. For released Streamable HTTP clients, create one `mcp.NewSessionStore` for the server lifetime and set it on `mcp.Handler.Sessions`. Its owner function returns a stable key for the authenticated principal, never a credential. Authenticate every request; a session ID grants nothing. Updates are invalidations: clients read the resource again. The [`mcp` package documentation](https://pkg.go.dev/github.com/gomodedev/gomode/mcp) covers the session lifecycle.
 
 ## Alerts
 

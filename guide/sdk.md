@@ -43,7 +43,7 @@ The MCP endpoint must be a same-origin path or URL. `HostModeProvider` detects t
 | ------------------------------------------ | --------------------------------------------------------------------------- |
 | `@gomodedev/gomode/web/FrontendVoiceTools` | Bridge 3 authentication, frontend tool registration, and readiness          |
 | `@gomodedev/gomode/web/BrowserVoiceShell`  | Browser voice discovery, setup, and runtime                                 |
-| `@gomodedev/gomode/web/VoiceOverlay`       | Voice bar, transcript, and tool history                                     |
+| `@gomodedev/gomode/web/VoiceOverlay`       | Voice bar, transcript, tool history, and error history                      |
 | `@gomodedev/gomode/web/VoiceSettings`      | Voice setup, speech stages, speaking voice, speed, and language settings    |
 | `@gomodedev/gomode/web/VoiceMessages`      | English labels; `/de`, `/es`, and `/fr` hold translations                   |
 | `@gomodedev/gomode/web/notifications`      | Browser notification permission, delivery, dismissal, and voice suppression |
@@ -54,6 +54,8 @@ The MCP endpoint must be a same-origin path or URL. `HostModeProvider` detects t
 `BrowserVoiceShell` takes the expected service and tool-group names, the client name, and the preparation scope. It discovers the manifest only in browser mode and only when the scope is ready. An external gateway needs a same-origin token endpoint and an `authorize(endpoint)` callback that performs the host’s token exchange. A missing discovery route means voice is unavailable; a malformed manifest is a setup error.
 
 `VoiceSettings` offers the same setup as Android: **All-in-one** with a realtime model, or **Separate stages** with **Recognition**, **Language model**, and **Speech**, where **Browser** selects the browser’s speech APIs. It also offers the voice language, speaking voice, and speaking speed, and saves each of them. An active session locks them. The choices, models, and speaking voices come from the gateway, so a host that offers several backends does not model them itself.
+
+`VoiceOverlay` shows a voice error with a dismiss button that returns keyboard focus to the voice control. A dismissed error stays in the error history. Hosts that supply their own `VoiceMessages` can set the optional `dismissError` label; English is the fallback.
 
 The host decides which product events become alerts and when they expire.
 
@@ -70,7 +72,7 @@ The host decides which product events become alerts and when they expire.
 
 Every SDK import names its protocol version; there are no unversioned exports. TypeScript entry points are `@gomodedev/gomode/sdk/gomode/v1/api.gen`, `sdk/mcp/v1/types.gen`, `sdk/oauth/v1/types.gen`, and `sdk/voicegateway/v2/api.gen` under the same package prefix. Kotlin packages end in `.sdk.v1` or `.sdk.v2`. Swift modules are `GoModeSDKV1`, `MCPSDKV1`, `OAuthSDKV1`, `VoiceGatewaySDKV1`, and `VoiceGatewaySDKV2`. The Android repository also includes the Halo SDK.
 
-Voice gateway v2 is the current signaling and data-channel contract. The gateway still serves v1 for clients built against the v0.3.0 release.
+Voice gateway v2 is the current signaling and data-channel contract. The gateway still serves v1 for clients built against the v0.3.0 release. v1 is deprecated. v0.4.0 is the first release that contains v2; once a second release contains v2, a later release can remove v1. Move clients to v2.
 
 After changing wire DTOs or routes in Go Mode, maintainers regenerate the SDKs with:
 

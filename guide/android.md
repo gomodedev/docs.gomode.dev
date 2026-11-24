@@ -2,7 +2,7 @@
 
 Go Mode loads a compatible service’s existing web frontend and adds native voice, notifications, settings, and optional Halo glasses integration.
 
-Go Mode follows your Android light or dark theme. Hosted apps that support the system appearance follow it as well.
+Go Mode follows your Android light or dark theme. Hosted apps that support the system appearance follow it as well. A theme change keeps the current screen, its edits, and the loaded hosted pages.
 
 ## Build from source
 
